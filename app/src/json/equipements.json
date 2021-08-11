@@ -1,0 +1,164 @@
+{
+  "@context": "/api/contexts/Equipement",
+  "@id": "/api/equipements",
+  "@type": "hydra:Collection",
+  "hydra:member": [
+    {
+      "@id": "/api/equipements/1",
+      "@type": "Equipement",
+      "id": 1,
+      "equ_marque": "Sony",
+      "equ_modele": "sollicitudin",
+      "equ_serie": "285516",
+      "equ_nom": null,
+      "equ_description": null,
+      "equ_photo_1": "machine-production-1.jpg",
+      "equ_archive": false,
+      "ptMesures": [
+        "/api/pt_mesures/21",
+        "/api/pt_mesures/22"
+      ],
+      "site": "/api/sites/1"
+    },
+    {
+      "@id": "/api/equipements/2",
+      "@type": "Equipement",
+      "id": 2,
+      "equ_marque": "Motorola",
+      "equ_modele": "quis",
+      "equ_serie": "850412",
+      "equ_nom": null,
+      "equ_description": null,
+      "equ_photo_1": "machine-production-3.jpg",
+      "equ_archive": false,
+      "ptMesures": [
+        "/api/pt_mesures/23"
+      ],
+      "site": "/api/sites/1"
+    },
+    {
+      "@id": "/api/equipements/3",
+      "@type": "Equipement",
+      "id": 3,
+      "equ_marque": "Motorola",
+      "equ_modele": "odio",
+      "equ_serie": "288964",
+      "equ_nom": null,
+      "equ_description": null,
+      "equ_photo_1": "machine-production-4.jpg",
+      "equ_archive": false,
+      "ptMesures": [
+        "/api/pt_mesures/24"
+      ],
+      "site": "/api/sites/2"
+    },
+    {
+      "@id": "/api/equipements/4",
+      "@type": "Equipement",
+      "id": 4,
+      "equ_marque": "Philips",
+      "equ_modele": "tortor",
+      "equ_serie": "499591",
+      "equ_nom": null,
+      "equ_description": null,
+      "equ_photo_1": "machine-production-5.jpg",
+      "equ_archive": false,
+      "ptMesures": [
+        "/api/pt_mesures/25",
+        "/api/pt_mesures/26"
+      ],
+      "site": "/api/sites/2"
+    },
+    {
+      "@id": "/api/equipements/5",
+      "@type": "Equipement",
+      "id": 5,
+      "equ_marque": "Motorola",
+      "equ_modele": "morbi",
+      "equ_serie": "118498",
+      "equ_nom": null,
+      "equ_description": null,
+      "equ_photo_1": "machine-production-6.jpg",
+      "equ_archive": false,
+      "ptMesures": [
+        "/api/pt_mesures/27",
+        "/api/pt_mesures/28"
+      ],
+      "site": "/api/sites/3"
+    },
+    {
+      "@id": "/api/equipements/6",
+      "@type": "Equipement",
+      "id": 6,
+      "equ_marque": "Sony",
+      "equ_modele": "pede",
+      "equ_serie": "644365",
+      "equ_nom": null,
+      "equ_description": null,
+      "equ_photo_1": "machine-production-7.jpg",
+      "equ_archive": false,
+      "ptMesures": [
+        "/api/pt_mesures/29",
+        "/api/pt_mesures/30"
+      ],
+      "site": "/api/sites/4"
+    },
+    {
+      "@id": "/api/equipements/7",
+      "@type": "Equipement",
+      "id": 7,
+      "equ_marque": "Sony",
+      "equ_modele": "neque",
+      "equ_serie": "259213",
+      "equ_nom": null,
+      "equ_description": null,
+      "equ_photo_1": null,
+      "equ_archive": null,
+      "ptMesures": [],
+      "site": "/api/sites/4"
+    },
+    {
+      "@id": "/api/equipements/8",
+      "@type": "Equipement",
+      "id": 8,
+      "equ_marque": "Motorola",
+      "equ_modele": "mus",
+      "equ_serie": "876407",
+      "equ_nom": null,
+      "equ_description": null,
+      "equ_photo_1": null,
+      "equ_archive": null,
+      "ptMesures": [],
+      "site": "/api/sites/5"
+    },
+    {
+      "@id": "/api/equipements/9",
+      "@type": "Equipement",
+      "id": 9,
+      "equ_marque": "Sony",
+      "equ_modele": "quam",
+      "equ_serie": "556047",
+      "equ_nom": null,
+      "equ_description": null,
+      "equ_photo_1": null,
+      "equ_archive": null,
+      "ptMesures": [],
+      "site": "/api/sites/5"
+    },
+    {
+      "@id": "/api/equipements/10",
+      "@type": "Equipement",
+      "id": 10,
+      "equ_marque": "Motorola",
+      "equ_modele": "congue",
+      "equ_serie": "933228",
+      "equ_nom": null,
+      "equ_description": null,
+      "equ_photo_1": null,
+      "equ_archive": null,
+      "ptMesures": [],
+      "site": "/api/sites/5"
+    }
+  ],
+  "hydra:totalItems": 10
+}

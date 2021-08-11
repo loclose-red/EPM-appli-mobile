@@ -10,10 +10,10 @@ export default Equipements = ({navigation}) => {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Vue Equipements</Text>
       <Button
-        title="allez à login"
+        title="allez à LesPointsDeMesures"
         onPress={() => {
             console.log("click Equipements")
-            navigation.navigate('Login');
+            navigation.navigate('LesPointsDeMesures');
         }}
       />
       
