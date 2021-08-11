@@ -1,6 +1,10 @@
 //import React, { useState, useEffect } from 'react';
 import React from 'react';
 import { View, Text, Image, Button, TextInput, StyleSheet } from "react-native";
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import localStyles from '../styles/localStyles';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -19,7 +23,7 @@ export default Login = ({route, navigation}) => {
         // <View style={{backgroundColor : 'yellow',}}>
         <View style={styles.body}>
 
-            {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie du log
+            {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie du log, on efface le header et le footer
                 <View style={styles.header}>
                     <Image
                         style={styles.logo}
@@ -39,12 +43,10 @@ export default Login = ({route, navigation}) => {
                     onChangeText={onChangeLogName}
                     value={logName}
                     placeholder="Log name"
-                    onFocus={() => {
-                        console.log("on focus");
+                    onFocus={() => { //quand on prend le focus, on affiche uniquement les champs de saisie
                         setShowComponent(false);
                     }}
-                    onSubmitEditing={() => {
-                        console.log("on submit");
+                    onSubmitEditing={() => { //quand on perd le focus, on affiche toute la page
                         setShowComponent(true);
                     }}
                     />
@@ -53,12 +55,10 @@ export default Login = ({route, navigation}) => {
                     onChangeText={onChangePassword}
                     value={passWord}
                     placeholder="PassWord"
-                    onFocus={() => {
-                        console.log("on focus");
+                    onFocus={() => { //quand on prend le focus, on affiche uniquement les champs de saisie
                         setShowComponent(false);
                     }}
-                    onSubmitEditing={() => {
-                        console.log("on submit");
+                    onSubmitEditing={() => { //quand on perd le focus, on affiche toute la page
                         setShowComponent(true);
                     }}
                     // autoCompleteType="tel"
@@ -71,7 +71,6 @@ export default Login = ({route, navigation}) => {
                     style={styles.btn}
                     onPress={() => {
                         console.log("click sur validez");
-                        setShowComponent(false);
                     }}
                     title="Validez"
                     // color="#841584"
@@ -80,7 +79,7 @@ export default Login = ({route, navigation}) => {
                     />
             </View>
             
-            {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie du log
+            {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie du log, on efface le header et le footer
             <View style={styles.footer}>
                 <Image
                     style={styles.banniere}
