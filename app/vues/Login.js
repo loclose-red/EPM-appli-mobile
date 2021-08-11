@@ -71,7 +71,7 @@ export default Login = ({route, navigation}) => {
                     style={styles.btn}
                     onPress={() => {
                         console.log("click sur validez");
-                        navigation.navigate('LesPointsDeMesures');
+                        navigation.navigate('UnPointDeMesure');
                     }}
                     title="Validez"
                     // color="#841584"
