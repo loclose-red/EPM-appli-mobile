@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './vues/Login';
 import Configuration from './vues/Configuration';
 import Equipements from './vues/Equipements';
+import LesPointsDeMesures from './vues/LesPointsDeMesures';
 
 
 
@@ -21,6 +22,7 @@ export default Router = () => {
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Configuration" component={Configuration} />
                 <Stack.Screen name="Equipements" component={Equipements} />
+                <Stack.Screen name="LesPointsDeMesures" component={LesPointsDeMesures} />
 
             </Stack.Navigator>
         </NavigationContainer>
