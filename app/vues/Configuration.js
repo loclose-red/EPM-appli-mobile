@@ -20,9 +20,3 @@ export default Configuration = ({navigation}) => {
     </View>
   );
 }
-
-
-
-
-
-// export default App;
