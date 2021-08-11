@@ -10,10 +10,10 @@ export default Configuration = ({navigation}) => {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Vue configuration</Text>
       <Button
-        title="Go to Details"
+        title="allez à login"
         onPress={() => {
             console.log("click configuration")
-            // navigation.navigate('Details');
+            navigation.navigate('Login');
         }}
       />
       
