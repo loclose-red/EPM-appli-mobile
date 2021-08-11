@@ -19,9 +19,16 @@ const styles = StyleSheet.create({
     },
     initiale:{
         color: "green",
+        fontSize: 25,
+        textAlignVertical: "bottom",
+        // backgroundColor: "grey",
     },
     suiteMot:{
-
+        fontSize: 18,
+        // textAlign: "center",
+        textAlignVertical: "bottom",
+        paddingBottom: 3,
+        // backgroundColor: "grey",
     },
     titre: {
     },

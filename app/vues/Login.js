@@ -12,20 +12,26 @@ import { TextCustom } from '../composants/TextCustom';
 export default Login = ({route, navigation}) => {
     const [logName, onChangeLogName] = React.useState("");
     const [passWord, onChangePassword] = React.useState("");
+
+    //variable utilisée pour afficher ou effacer des composant lors de la saisie du log-pass
+    const [showComponent, setShowComponent] = React.useState(true);
     return(
         // <View style={{backgroundColor : 'yellow',}}>
-        <View>
-            <View style={styles.header}>
-                <Image
-                    style={styles.logo}
-                    source={require('../src/images/stvLogo.png')}
-                />
-                <View>
-                    <TextCustom initiale="E" suiteMot="nergy"></TextCustom>
-                    <TextCustom initiale="P" suiteMot="ower"></TextCustom>
-                    <TextCustom initiale="M" suiteMot="anagment"></TextCustom>
+        <View style={styles.body}>
+
+            {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie du log
+                <View style={styles.header}>
+                    <Image
+                        style={styles.logo}
+                        source={require('../src/images/stvLogo.png')}
+                    />
+                    <View style={styles.blocTextHeader}>
+                        <TextCustom initiale="E" suiteMot="nergy"></TextCustom>
+                        <TextCustom initiale="P" suiteMot="ower"></TextCustom>
+                        <TextCustom initiale="M" suiteMot="anagment"></TextCustom>
+                    </View>
                 </View>
-            </View>
+            ) :null}
 
             <View style={styles.main}>
                 <TextInput
@@ -33,34 +39,55 @@ export default Login = ({route, navigation}) => {
                     onChangeText={onChangeLogName}
                     value={logName}
                     placeholder="Log name"
+                    onFocus={() => {
+                        console.log("on focus");
+                        setShowComponent(false);
+                    }}
+                    onSubmitEditing={() => {
+                        console.log("on submit");
+                        setShowComponent(true);
+                    }}
                     />
                 <TextInput
                     style={styles.input}
                     onChangeText={onChangePassword}
                     value={passWord}
                     placeholder="PassWord"
+                    onFocus={() => {
+                        console.log("on focus");
+                        setShowComponent(false);
+                    }}
+                    onSubmitEditing={() => {
+                        console.log("on submit");
+                        setShowComponent(true);
+                    }}
                     // autoCompleteType="tel"
                     // autoCapitalize= 'characters'
                     // caretHidden = {true}
                     secureTextEntry= {true}
+
                     />
                 <Button
                     style={styles.btn}
-                    onPress={() => {console.log("click sur validez");}}
+                    onPress={() => {
+                        console.log("click sur validez");
+                        setShowComponent(false);
+                    }}
                     title="Validez"
                     // color="#841584"
                     color="green"
                     accessibilityLabel="Learn more about this purple button"
                     />
             </View>
-
+            
+            {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie du log
             <View style={styles.footer}>
                 <Image
                     style={styles.banniere}
                     source={require('../src/images/stvBanniere.png')}
                 />
             </View>
-            
+            ) :null}
             
             
             
@@ -71,18 +98,26 @@ export default Login = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
+    body:{
+        flex: 1,
+        flexDirection: "column",
+    },
     header: {
-        
+        margin: "5%",
+        flex: 1,
         flexDirection: "row",
     },
     logo: {
+        // hide: true,
         width: 100,
         height: 100,
         // backgroundColor : 'yellow'
     },
-    main: {
-        
+    blocTextHeader: {
+        marginTop: 5,
+        marginLeft: 40,
     },
+    
     input: {
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -95,18 +130,25 @@ const styles = StyleSheet.create({
         width: 100,
     },
     main:{
+        flex: 3,
+        justifyContent: "center",
         marginLeft: 'auto',
         marginRight: 'auto',
-        width:200,
+        marginBottom:"20%",
+        // width:200,
         // backgroundColor: 'grey',
     },
-
+    
     footer: {
-        
+        flex: 1,
+        alignSelf: "flex-end",
+        // backgroundColor: 'grey',
+        // margin: "5%",
+        padding: "3%",
     },
     banniere: {
-        width: 150,
-        height: 70,
+        width: 200,
+        height: "100%",
     },
     text1: {
         marginLeft: 'auto',
