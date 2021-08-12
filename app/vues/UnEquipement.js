@@ -5,10 +5,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 
-export default LesPointsDeMesures = ({navigation}) => {
+export default UnEquipement = ({navigation}) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Vue LesPointsDeMesures</Text>
+      <Text>Vue Un Equipement</Text>
       <Button
         title="allez à login"
         onPress={() => {
