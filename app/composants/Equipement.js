@@ -35,10 +35,10 @@ export const Equipement = ({item, navigation}) => {
                     source={images[item.equ_photo_1]}
             />
             <View style={styles.textDescript}>
-                <Text >{item.equ_nom}</Text>
-                <Text >{item.equ_marque}</Text>
-                <Text >{item.equ_modele}</Text>
-                <Text >{item.equ_serie}</Text>
+                <Text style={styles.textNom}>{item.equ_nom}</Text>
+                <Text style={styles.textMarque}>{item.equ_marque}</Text>
+                <Text style={styles.textModele}>{item.equ_modele}</Text>
+                <Text style={styles.textSerie}>{item.equ_serie}</Text>
             </View>
             <View style={styles.click}>
                 <TouchableHighlight style={styles.touchable} onPress={() => {
@@ -60,21 +60,46 @@ const styles = StyleSheet.create({
         height: 90,
         marginTop: 10,
         marginBottom: 10,
-        backgroundColor: "grey",
+        // backgroundColor: "grey",
+        borderColor: "black",
+        borderWidth: 1,
         borderRadius: 5,
         
     },
     imgEqui: {
-        width: 90,
-        height: 90,
+        flex: 1,
+        width: 89,
+        height: 88,
         borderTopLeftRadius: 5,
         borderBottomLeftRadius: 5,
+        padding: 2,
     },
     textDescript: {
+        flex: 2,
         margin: 5,
+        marginLeft: 10,
     },
-    click: {
+    textNom: {
+        fontSize: 16,
+        fontWeight: "bold",
+    },
 
+
+
+    click: {
+        flex: 1,
+        // backgroundColor: "grey",
+        width: "100%",
+        // alignItems: "flex-end",
+        justifyContent: "center",
+    },
+    touchable: {
+        // flexDirection: "row",
+        // alignSelf: "flex-end",
+        // alignSelf: "center",
+        alignItems: "flex-end",
+        marginRight: 5,
+        // alignItems: "center",
     },
     
 });

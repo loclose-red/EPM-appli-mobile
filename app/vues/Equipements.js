@@ -54,10 +54,16 @@ export default Equipements = ({navigation}) => {
   return (
     <View style={styles.body}>
       
-      <Text>site: RENNES</Text>
-      <Text>Dernière sychronisation</Text>
-      <Text>avec le serveur:</Text>
-      <Text>17/09/2021 à 17H12</Text>
+      <View style={styles.titre}>
+        <Text style={styles.titreDescription}>site:</Text>
+        <Text style={styles.titreContenu}>RENNES</Text>
+      </View>
+
+      <View style={styles.infoSynchro}>
+        <Text>Dernière sychronisation</Text>
+        <Text>avec le serveur:</Text>
+        <Text style={styles.infoSynchroDate}>17/09/2021 à 17H12</Text>
+      </View>
       
       <SafeAreaView style={styles.container}>
         <FlatList
@@ -79,6 +85,33 @@ const styles = StyleSheet.create({
       // flex: 1,
       // alignItems: 'center',
       // justifyContent: 'center',
+  },
+  titre:{
+    margin:10,
+    padding:10,
+    backgroundColor: "lightgrey",
+    borderRadius: 5,
+    flexDirection:"row"
+  },
+  titreDescription:{
+    textAlignVertical:"bottom",
+  },
+  titreContenu:{
+    width: "100%",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  infoSynchro:{
+    margin: 10,
+    padding: 10,
+    backgroundColor: "lightgrey",
+    borderRadius: 5,
+
+
+  },
+  infoSynchroDate:{
+    fontWeight: "bold",
   },
   
 });
