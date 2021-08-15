@@ -40,7 +40,7 @@ export default Equipements = ({navigation}) => {
   // console.log(lesEquipements);
   //filtre pour récupérer uniquement les équipements de Rennes (site id = 1)
   let lesEquipementsRennes = copieEquipements.filter(equipement => equipement.site == "/api/sites/1");
-  console.log(lesEquipementsRennes);
+  // console.log(lesEquipementsRennes);
   
   
   

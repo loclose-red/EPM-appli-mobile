@@ -1,0 +1,12 @@
+{
+  "@context": "/api/contexts/PtMesure",
+  "@id": "/api/pt_mesures/22",
+  "@type": "PtMesure",
+  "id": 22,
+  "pt_mes_nom": "intermédiaire",
+  "pt_mes_position": "42",
+  "pt_mes_archive": null,
+  "grandeur": "/api/grandeurs/2",
+  "capteur": "/api/capteurs/2",
+  "equipement": "/api/equipements/1"
+}
