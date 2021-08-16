@@ -13,18 +13,26 @@ export const PtDeMes = ({item, navigation}) => {
                 <Text>21/07/2021 10:12</Text>
             </View>
             <View style={styles.clickDownload}>
-                <TouchableHighlight style={styles.touchable} onPress={() => {
-                    console.log("Download: " + item.id);
+                <TouchableHighlight
+                    style={styles.touchable}
+                    activeOpacity={0.5}
+                    underlayColor="#DDDDDD"
+                    onPress={() => {
+                        console.log("Download: " + item.id);
                     }
                 }>
                     <FontAwesome5 name={'download'} solid size={50} />
                 </TouchableHighlight>
             </View>
             <View style={styles.clickVersUnPoint}>
-                <TouchableHighlight style={styles.touchable} onPress={() => {
-                    // navigation.navigate('Detail', {uneRecette : item});
-                    navigation.navigate('UnPointDeMesure');
-                    console.log("touch: " + item.id);
+                <TouchableHighlight
+                    style={styles.touchable}
+                    activeOpacity={0.5}
+                    underlayColor="#DDDDDD"
+                    onPress={() => {
+                        // navigation.navigate('Detail', {uneRecette : item});
+                        navigation.navigate('UnPointDeMesure');
+                        console.log("touch: " + item.id);
                     }
                 }>
                     <FontAwesome5 name={'arrow-alt-circle-right'} solid size={50} />

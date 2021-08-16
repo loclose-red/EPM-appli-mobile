@@ -41,10 +41,14 @@ export const Equipement = ({item, navigation}) => {
                 <Text style={styles.textSerie}>{item.equ_serie}</Text>
             </View>
             <View style={styles.click}>
-                <TouchableHighlight style={styles.touchable} onPress={() => {
-                    // navigation.navigate('Detail', {uneRecette : item});
-                    navigation.navigate('UnEquipement');
-                    console.log("touch: " + item.id);
+                <TouchableHighlight 
+                    style={styles.touchable}
+                    activeOpacity={0.5}
+                    underlayColor="#DDDDDD"
+                    onPress={() => {
+                        // navigation.navigate('Detail', {uneRecette : item});
+                        navigation.navigate('UnEquipement');
+                        console.log("touch: " + item.id);
                     }
                 }>
                     <FontAwesome5 name={'arrow-alt-circle-right'} solid size={50} />
