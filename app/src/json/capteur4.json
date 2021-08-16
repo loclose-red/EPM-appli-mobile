@@ -1,0 +1,14 @@
+{
+    "@context": "/api/contexts/Capteur",
+    "@id": "/api/capteurs/4",
+    "@type": "Capteur",
+    "id": 4,
+    "cap_marque": "ATI",
+    "cap_modele": "ipsum",
+    "cap_serie": "4878",
+    "cap_archive": null,
+    "ptMesures": [
+        "/api/pt_mesures/21"
+    ],
+    "site": null
+}

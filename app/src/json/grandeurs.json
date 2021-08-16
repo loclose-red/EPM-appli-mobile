@@ -1,0 +1,24 @@
+{
+    "@context": "/api/contexts/Grandeur",
+    "@id": "/api/grandeurs",
+    "@type": "hydra:Collection",
+    "hydra:member": [
+      {
+        "@id": "/api/grandeurs/1",
+        "@type": "Grandeur",
+        "id": 1,
+        "gra_unite": "Pa",
+        "gra_nom": "Pression Pascal",
+        "gra_archive": false
+      },
+      {
+        "@id": "/api/grandeurs/2",
+        "@type": "Grandeur",
+        "id": 2,
+        "gra_unite": "Deg_C",
+        "gra_nom": "Température Degrés Celsius",
+        "gra_archive": false
+      }
+    ],
+    "hydra:totalItems": 2
+  }
