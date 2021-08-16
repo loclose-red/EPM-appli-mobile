@@ -46,53 +46,56 @@ export default Configuration = ({navigation}) => {
             }}
             />
         </View>
-         <TouchableHighlight 
-            style={styles.btnDownload}
-            activeOpacity={0.5}
-            underlayColor="#DDDDDD"
-            onPress={() => {
-            // navigation.navigate('Detail', {uneRecette : item});
-            // navigation.navigate('UnEquipement');
-            console.log("sync");
-            }
-          }>
-            <View style={styles.blocBtn}>
-              <View style={styles.blocBtnText}>
-                <Text >Synchronisation avec le seveur</Text>
-                <Text >mise à jour des données.</Text>
+          {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
+            <TouchableHighlight 
+              style={styles.btnDownload}
+              activeOpacity={0.5}
+              underlayColor="#DDDDDD"
+              onPress={() => {
+              // navigation.navigate('Detail', {uneRecette : item});
+              // navigation.navigate('UnEquipement');
+              console.log("sync");
+              }
+              }>
+              <View style={styles.blocBtn}>
+                <View style={styles.blocBtnText}>
+                  <Text >Synchronisation avec le seveur</Text>
+                  <Text >mise à jour des données.</Text>
+                </View>
+                <FontAwesome5 style={styles.blocBtnIcone} name={'sync'} solid size={50} />
               </View>
-              <FontAwesome5 style={styles.blocBtnIcone} name={'sync'} solid size={50} />
-            </View>
-          </TouchableHighlight>
+            </TouchableHighlight>
+          ) :null}
 
-          <TouchableHighlight 
-            style={styles.btnDownload}
-            activeOpacity={0.5}
-            underlayColor="#DDDDDD"
-            onPress={() => {
-            // navigation.navigate('Detail', {uneRecette : item});
-            // navigation.navigate('UnEquipement');
-            console.log("trash-alt");
-            }
-          }>
-            <View style={styles.blocBtn}>
-              <View style={styles.blocBtnText}>
-                <Text >Suppression du compte et</Text>
-                <Text >initialisation de l'application.</Text>
+          {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
+            <TouchableHighlight 
+              style={styles.btnDownload}
+              activeOpacity={0.5}
+              underlayColor="#DDDDDD"
+              onPress={() => {
+                // navigation.navigate('Detail', {uneRecette : item});
+                // navigation.navigate('UnEquipement');
+                console.log("trash-alt");
+              }
+              }>
+              <View style={styles.blocBtn}>
+                <View style={styles.blocBtnText}>
+                  <Text >Suppression du compte et</Text>
+                  <Text >initialisation de l'application.</Text>
+                </View>
+                <FontAwesome5 style={styles.blocBtnIcone} name={'trash-alt'} solid size={50} />
               </View>
-              <FontAwesome5 style={styles.blocBtnIcone} name={'trash-alt'} solid size={50} />
-            </View>
-          </TouchableHighlight>
-
+            </TouchableHighlight>
+          ) :null}
       </View>
-      {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
+        {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
         <View style={styles.footer}>
           <Image
             style={styles.banniere}
             source={require('../src/images/stvBanniere.png')}
           />
         </View>
-      ) :null}
+        ) :null}
 
     </View>
   );
