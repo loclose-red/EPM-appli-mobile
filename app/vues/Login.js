@@ -49,7 +49,7 @@ export default Login = ({route, navigation}) => {
                     onSubmitEditing={() => { //quand on perd le focus, on affiche toute la page
                         setShowComponent(true);
                     }}
-                    />
+                />
                 <TextInput
                     style={styles.input}
                     onChangeText={onChangePassword}
