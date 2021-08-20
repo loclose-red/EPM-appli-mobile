@@ -1,6 +1,6 @@
 //import React, { useState, useEffect } from 'react';
 import React from 'react';
-import { View, Text, Image, Button, TextInput, StyleSheet } from "react-native";
+import { View, Text, Image, Button, TextInput, ActivityIndicator, StyleSheet } from "react-native";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -16,9 +16,19 @@ import { TextCustom } from '../composants/TextCustom';
 export default Login = ({route, navigation}) => {
     const [logName, onChangeLogName] = React.useState("");
     const [passWord, onChangePassword] = React.useState("");
+    const [usersFromServeur, setUsersFromServer] = React.useState([]);
 
     //variable utilisée pour afficher ou effacer des composant lors de la saisie du log-pass
     const [showComponent, setShowComponent] = React.useState(true);
+
+
+
+    const getUsersFromAPi = () => {
+        console.log("in get user");
+
+    };
+
+
     return(
         // <View style={{backgroundColor : 'yellow',}}>
         <View style={styles.body}>
@@ -71,13 +81,16 @@ export default Login = ({route, navigation}) => {
                     style={styles.btn}
                     onPress={() => {
                         console.log("click sur validez");
-                        navigation.navigate('Equipements');
+                        getUsersFromAPi();
+                        // navigation.navigate('Equipements');
                     }}
                     title="Validez"
                     // color="#841584"
                     color="green"
                     accessibilityLabel="Learn more about this purple button"
                     />
+            <ActivityIndicator size="large" color="#0000ff" />
+
             </View>
             
             {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie du log, on efface le header et le footer
