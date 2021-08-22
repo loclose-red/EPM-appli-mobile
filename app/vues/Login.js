@@ -1,5 +1,5 @@
-//import React, { useState, useEffect } from 'react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+// import React from 'react';
 import { View, Text, Image, Button, TextInput, ActivityIndicator, StyleSheet } from "react-native";
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,21 +12,81 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 //import composants internes
 import { TextCustom } from '../composants/TextCustom';
 
+//import de fonctions globales
+import { TestFunc1 } from '../globalFunctions/GetFromApi';
+
 
 export default Login = ({route, navigation}) => {
-    const [logName, onChangeLogName] = React.useState("");
-    const [passWord, onChangePassword] = React.useState("");
-    const [usersFromServeur, setUsersFromServer] = React.useState([]);
+    const [logName, onChangeLogName] = useState("");
+    const [passWord, onChangePassword] = useState("");
+    const [usersFromServeur, setUsersFromServer] = useState([]);
+
+    //Ce local user à une valeur par défaut pour le dev 
+    //Ce paramètre sera persisté en mémoire par la suite
+    const [localUser, setLocalUser] = useState([
+        {"@id": "/api/utilisateurs/15",
+            "@type": "Utilisateur",
+            "id": 15,
+            "logname": "user_rennes_robert",
+            "roles": [
+                "ROLE_USER"
+            ],
+            "password": "$2y$13$ND1C/5AtMNeqaxVHcSCZ.ewCxXXrKn8HTk.oOv/TGyV.0V2Ha6or.",
+            "site": [
+                "/api/sites/1"
+            ]}
+    ]);
+    const [localSite, setLocalSite] = useState([]);
+    const [localEquipements, setLocalEquipements] = useState([]);
+    const [localPointsMesures, setLocalPointsMesures] = useState([]);
+    const [localCapteurs, setLocalCapteurs] = useState([]);
 
     //variable utilisée pour afficher ou effacer des composant lors de la saisie du log-pass
-    const [showComponent, setShowComponent] = React.useState(true);
+    const [showComponent, setShowComponent] = useState(true);
 
 
 
-    const getUsersFromAPi = () => {
-        console.log("in get user");
+    const verifLogName = () => {
+
+        console.log("dans verifLogName");
+        
+        TestFunc1();
+        //récupération de l'id du site correspondant au User (voir structure Json User)
+        let cheminSite = localUser[0].site[0];
+        let idSite = cheminSite.replace("/api/sites/","");
+        console.log(idSite);
+        //
+        getUsersFromApi()
+        // console.log(usersFromServeur);
+        let userFind = false;
+        usersFromServeur.forEach(userFromServer => {
+            if(userFromServer.logname == logName){
+                userFind = true;
+                // console.log(userFromServer);
+                setLocalUser(userFromServer);
+            }
+        });
+        userFind ? console.log("yes") : console.log("no");
 
     };
+    const getUsersFromApi = async () => {
+        try {
+        //  const response = await fetch('https://reactnative.dev/movies.json');
+         const response = await fetch('http://192.168.1.13:8000/api/utilisateurs?page=1');
+         const json = await response.json();
+         setUsersFromServer(json["hydra:member"]);
+        //  console.log(json);
+         
+         console.log('dans getUsersFromApi');
+       } catch (error) {
+         console.error(error);
+       } finally {
+        //  setLoading(false);
+       }
+     }
+     useEffect(() => {
+        getUsersFromApi();
+      }, []);
 
 
     return(
@@ -81,7 +141,7 @@ export default Login = ({route, navigation}) => {
                     style={styles.btn}
                     onPress={() => {
                         console.log("click sur validez");
-                        getUsersFromAPi();
+                        verifLogName();
                         // navigation.navigate('Equipements');
                     }}
                     title="Validez"
