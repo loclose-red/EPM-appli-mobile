@@ -4,29 +4,68 @@ let equipements = [];
 let pointsMesures = [];
 let capteurs = [];
 
+//création d'indicateurs pour vérifier le bon déroulement des requetes API
+let fetchSiteFinish = false;
+let fetchEquipementsFinish = false;
+let fetchPointsMesuresFinish = false;
+let fetchCapteursFinish = false;
+
 
 // site.push(5);   //pour ajouter une valeur dans un tableau
 // site.length = 0;   // pour effacer le tableau et ses références
 
 
+
 export function TestFunc1() {
+
+  let controller = new AbortController();
+  let signal = controller.signal;
   console.log("dans fonction globale");
   
+  //raz des tableaux
   site.length = 0;
   equipements.length = 0;
   pointsMesures.length = 0;
   capteurs.length = 0;
+
+  fetchSiteFinish = false;
+  fetchEquipementsFinish = false;
+  fetchPointsMesuresFinish = false;
+  fetchCapteursFinish = false;
   
-  getSiteByIdFromApi(1);
-  getEquipementByIdFromApi(1);
-  getPtDeMesByIdFromApi(21);
-  getCapteurByIdFromApi(4);
+  getSiteAndEquipementsByIdSiteFromApi(1,signal);
+  // getEquipementAndPtMesureByIdEquiFromApi(1);
+  // getPtDeMesAndCapteurByIdPtdeMesFromApi(21);
+  // getCapteurByIdFromApi(4);
 
-  setTimeout(() => console.log('contenu tableau site ' + site[0].sit_raison_sociale), 5000);
-  setTimeout(() => console.log('contenu tableau equipements ' + equipements.[0].equ_marque), 5100);
-  setTimeout(() => console.log('contenu tableau points de mesures ' + pointsMesures[0].pt_mes_nom), 5200);
-  setTimeout(() => console.log('contenu tableau capteurs ' + capteurs[0].cap_marque), 5300);
+  setTimeout(() => console.log('contenu tableau site ' + site[0].sit_raison_sociale), 10000);
+  setTimeout(() => console.log('contenu tableau equipements ' + equipements[0].equ_marque), 10500);
+  setTimeout(() => console.log('contenu tableau points de mesures ' + pointsMesures[0].pt_mes_nom), 11000);
+  setTimeout(() => console.log('contenu tableau capteurs ' + capteurs[0].cap_marque), 11500);
+  setTimeout(() => console.log('fetchSiteFinish: ' + fetchSiteFinish), 12500);
+  setTimeout(() => console.log('fetchEquipementsFinish: ' + fetchEquipementsFinish), 12500);
+  setTimeout(() => console.log('fetchPointsMesuresFinish: ' + fetchPointsMesuresFinish), 12500);
+  setTimeout(() => console.log('fetchCapteursFinish: ' + fetchCapteursFinish), 12500);
 
+  //mise en place d'un timeOut de 15 secondes sur les fetch
+  setTimeout(() => checkFetch (controller), 15000);
+  
+
+}
+
+function checkFetch (controller) {
+  if((fetchSiteFinish == false)
+    ||(fetchEquipementsFinish == false)
+    ||(fetchPointsMesuresFinish == false)
+    ||(fetchCapteursFinish == false))
+    {
+    console.log('fetch erreur');
+    controller.abort();
+    
+  }else{
+    console.log('fetch ok');
+    
+  }
 }
 
 export function getAllFromApiByIdSite(idSite) {
@@ -34,76 +73,93 @@ export function getAllFromApiByIdSite(idSite) {
   setTimeout(() => console.log('test fonction time out ') , 10000);
   getSiteByIdFromApi(idSite);
 }
+export function stopFetch (){
+  controller.abort();
+}
 
-const getSiteByIdFromApi = async (idSite) => {
+const getSiteAndEquipementsByIdSiteFromApi = async (idSite,signal) => {
   //création d'une référence du tableau "site" pour utilisation dans le "try..."
   let site_sc = site;
   try {
     //const response = await fetch('http://192.168.1.13:8000/api/sites/1');
-    const response = await fetch(adresseServeur + 'api/sites/' + idSite);
+    const response = await fetch(adresseServeur + 'api/sites/' + idSite, {signal});
     const json = await response.json();
     site_sc.push(json);
     let lesEquipements = [];
     lesEquipements = json.equipements;
     console.log('dans getSiteByIdFromApi');
-    console.log("le site par id: " + lesEquipements);
-    //  let idSite = cheminSite.replace("/api/equipements/","");
+
+    // on récupère de l'api les équipements liés au site 
+    let idEquipement = "";
     lesEquipements.forEach(equipement => {
-      console.log("dans for each: " + equipement.replace("/api/equipements/", ""));
+      idEquipement = equipement.replace("/api/equipements/", "");
+      console.log("dans for each id equipement: " + idEquipement);
+      getEquipementAndPtMesureByIdEquiFromApi(idEquipement,signal);
     });
   } catch (error) {
     console.error(error);
   } finally {
+    fetchSiteFinish = true;
     // console.log('dans finally ...');
   }
 
 };
 
-const getEquipementByIdFromApi = async (idEqui) =>{
+const getEquipementAndPtMesureByIdEquiFromApi = async (idEqui,signal) =>{
   let equipements_sc = equipements;
   try {
-    const response = await fetch(adresseServeur + 'api/equipements/' + idEqui);
+    const response = await fetch(adresseServeur + 'api/equipements/' + idEqui, {signal});
     const json = await response.json();
     equipements_sc.push(json);
     let lesPointsDeMesures = [];
     lesPointsDeMesures = json.ptMesures;
+
+    // on récupère de l'api les points de mesure liés à l'équipement 
+    let idPtDeMes = "";
     lesPointsDeMesures.forEach(unPtDeMes => {
-      console.log("dans for each: " + unPtDeMes.replace("/api/pt_mesures/", ""));
+      idPtDeMes = unPtDeMes.replace("/api/pt_mesures/", "");
+      console.log("dans for each id pt de mesure: " + idPtDeMes);
+      getPtDeMesAndCapteurByIdPtdeMesFromApi(idPtDeMes,signal);
     });
   } catch (error) {
     console.error(error);
   } finally {
-    console.log('dans finally ...');
+    fetchEquipementsFinish = true;
+    // console.log('dans finally ...');
   }  
 };
 
-const getPtDeMesByIdFromApi = async (idPtMes) =>{
+const getPtDeMesAndCapteurByIdPtdeMesFromApi = async (idPtMes,signal) =>{
   let pointsMesures_sc = pointsMesures;
   try {
-    const response = await fetch(adresseServeur + 'api/pt_mesures/' + idPtMes);
+    const response = await fetch(adresseServeur + 'api/pt_mesures/' + idPtMes, {signal});
     const json = await response.json();
     pointsMesures_sc.push(json);
     let leCapteur = "";
     leCapteur = json.capteur;
-      console.log("l'id capteur: " + leCapteur.replace("/api/capteurs/", ""));
-    
+
+    // on récupère de l'api, le capteur lié au point de mesure 
+    let idCapteur = leCapteur.replace("/api/capteurs/", "");
+    console.log("l'id capteur: " + idCapteur);
+    getCapteurByIdFromApi(idCapteur,signal);
   } catch (error) {
     console.error(error);
   } finally {
+    fetchPointsMesuresFinish = true;
     // console.log('dans finally ...');
   }
 };
 
-const getCapteurByIdFromApi = async (idCapteur) =>{
+const getCapteurByIdFromApi = async (idCapteur,signal) =>{
   let capteurs_sc = capteurs;
   try {
-    const response = await fetch(adresseServeur + 'api/capteurs/' + idCapteur);
+    const response = await fetch(adresseServeur + 'api/capteurs/' + idCapteur, {signal});
     const json = await response.json();
     capteurs_sc.push(json);
-    
   } catch (error) {
     console.error(error);
   } finally {
+    fetchCapteursFinish = true;
     // console.log('dans finally ...');
   }
 };

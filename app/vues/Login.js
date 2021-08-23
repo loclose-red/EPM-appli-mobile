@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { TextCustom } from '../composants/TextCustom';
 
 //import de fonctions globales
-import { TestFunc1 } from '../globalFunctions/GetFromApi';
+import { TestFunc1, stopFetch } from '../globalFunctions/GetFromApi';
 
 
 export default Login = ({route, navigation}) => {
@@ -147,8 +147,13 @@ export default Login = ({route, navigation}) => {
                     title="Validez"
                     // color="#841584"
                     color="green"
-                    accessibilityLabel="Learn more about this purple button"
                     />
+                <Button style={styles.btn} title="test" color="blue"
+                    onPress={() => {
+                        console.log("click sur test");
+                        stopFetch();
+                    }}
+                />
             <ActivityIndicator size="large" color="#0000ff" />
 
             </View>
