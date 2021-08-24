@@ -22,7 +22,7 @@ import * as listeEquimements from '../src/json/equipements.json';
 export default Equipements = ({navigation}) => {
   // console.log(listeEquimements.default['hydra:member']);
   // console.log("mes images: " + Images);
-  const [lesEquipements, setLesEquipements] = useState([]);
+  const [lesEquipements, setLesEquipements] = useState([{}]);
   const [leSite, setLeSite] = useState([{}]);
 
   //Configutation de la barre de navigation
