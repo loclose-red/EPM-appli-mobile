@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {saveSite, saveEquipements, savePointsMesures, saveCapteurs} from '../globalFunctions/SaveLocal';
+import {loadSite, loadEquipements, loadPointsMesures, loadCapteurs} from '../globalFunctions/LoadLocal';
 
 
 const adresseServeur = "http://192.168.43.79:8000/";
@@ -60,10 +61,7 @@ export function TestFunc1() {
 }
 
 
-// fonction pour le dev: test de lecture mémoire
-export function lectureMemoire() {
-  loadSite();
-}
+
 
 
 
@@ -98,19 +96,6 @@ function checkFetch (controller) {
 }
 
 
-//site,equipements,pointsMesures,capteurs
-const loadSite = async () => {
-  try {
-      const jsonValue = await AsyncStorage.getItem("@site");
-      let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
-      // setDesRecettes(retour);
-      // setEndAsync(true);
-      console.log("dans loadSite:" + retour[0].sit_raison_sociale);
-  } catch(e) {
-     // traitement des erreurs
-      console.log("erreur fct 'loadSite': ", e);
-  }
-};
 
 
 
