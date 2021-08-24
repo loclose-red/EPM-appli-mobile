@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { View, Text, Image, Button, TouchableHighlight, FlatList, SafeAreaView, StyleSheet } from 'react-native';
+import { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -9,6 +11,9 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Equipement } from '../composants/Equipement';
 // import * as Images from '../src/images';
 
+
+
+
 //fichier json local des equipements (cette etape est pour le dev avant la récupération via api)
 import * as listeEquimements from '../src/json/equipements.json';
 
@@ -17,6 +22,9 @@ import * as listeEquimements from '../src/json/equipements.json';
 export default Equipements = ({navigation}) => {
   // console.log(listeEquimements.default['hydra:member']);
   // console.log("mes images: " + Images);
+  const [lesEquipements, setLesEquipements] = useState([]);
+  const [leSite, setLeSite] = useState([{}]);
+
   //Configutation de la barre de navigation
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -35,12 +43,29 @@ export default Equipements = ({navigation}) => {
     });
 }, [navigation]);
 
-  const lesEquipements = listeEquimements.default['hydra:member'];
+useEffect(() => {
+  loadSite();
+}, []);
+
+const loadSite = async () => {
+  try {
+      const jsonValue = await AsyncStorage.getItem("@site");
+      let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+      setLeSite(retour);
+      console.log("dans ld site:"); console.log(leSite);
+
+  } catch(e) {
+     // traitement des erreurs
+      console.log("erreur fct 'loadSite': ", e);
+  }
+};
+
+  // const lesEquipements = listeEquimements.default['hydra:member'];
   let copieEquipements = [...lesEquipements];
   // console.log(lesEquipements);
   //filtre pour récupérer uniquement les équipements de Rennes (site id = 1)
   let lesEquipementsRennes = copieEquipements.filter(equipement => equipement.site == "/api/sites/1");
-  // console.log(lesEquipementsRennes);
+  console.log(lesEquipementsRennes);
   
   
   
@@ -53,10 +78,17 @@ export default Equipements = ({navigation}) => {
 
   return (
     <View style={styles.body}>
+      <Button style={styles.btn} title="test" color="blue"
+                    onPress={() => {
+                        console.log("click get from API");
+                        TestFunc1();
+                        
+                    }}
+                />
       
       <View style={styles.titre}>
         <Text style={styles.titreDescription}>site:</Text>
-        <Text style={styles.titreContenu}>RENNES</Text>
+        <Text style={styles.titreContenu}>{leSite[0].sit_raison_sociale}</Text>
       </View>
 
       <View style={styles.infoSynchro}>

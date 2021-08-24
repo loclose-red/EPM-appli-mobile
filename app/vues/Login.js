@@ -16,6 +16,7 @@ import { TextCustom } from '../composants/TextCustom';
 import { TestFunc1 } from '../globalFunctions/GetFromApi';
 import {loadSite, loadEquipements, loadPointsMesures, loadCapteurs} from '../globalFunctions/LoadLocal';
 
+const adresseServeur = "http://192.168.43.79:8000/";
 
 export default Login = ({route, navigation}) => {
     const [logName, onChangeLogName] = useState("");
@@ -50,8 +51,6 @@ export default Login = ({route, navigation}) => {
     const verifLogName = () => {
 
         console.log("dans verifLogName");
-        
-        TestFunc1();
         //récupération de l'id du site correspondant au User (voir structure Json User)
         let cheminSite = localUser[0].site[0];
         let idSite = cheminSite.replace("/api/sites/","");
@@ -73,7 +72,7 @@ export default Login = ({route, navigation}) => {
     const getUsersFromApi = async () => {
         try {
         //  const response = await fetch('https://reactnative.dev/movies.json');
-         const response = await fetch('http://192.168.1.13:8000/api/utilisateurs?page=1');
+         const response = await fetch(adresseServeur + 'api/utilisateurs?page=1');
          const json = await response.json();
          setUsersFromServer(json["hydra:member"]);
         //  console.log(json);
@@ -143,16 +142,26 @@ export default Login = ({route, navigation}) => {
                     onPress={() => {
                         console.log("click sur validez");
                         verifLogName();
-                        // navigation.navigate('Equipements');
+                        navigation.navigate('Equipements');
                     }}
                     title="Validez"
                     // color="#841584"
                     color="green"
                     />
+                <Button style={styles.btn} title="get from API" color="blue"
+                    onPress={() => {
+                        console.log("click get from API");
+                        TestFunc1();
+                        
+                    }}
+                />
                 <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
                         console.log("click sur test");
                         loadSite();
+                        loadEquipements();
+                        loadPointsMesures();
+                        loadCapteurs();
                     }}
                 />
             <ActivityIndicator size="large" color="#0000ff" />

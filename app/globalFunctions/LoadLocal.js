@@ -1,13 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //site,equipements,pointsMesures,capteurs
-export const loadSite = async () => {
+export const loadSite = async (siteTemp) => {
     try {
         const jsonValue = await AsyncStorage.getItem("@site");
         let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+        let nomSite = retour[0].sit_raison_sociale;
+        console.log(retour[0]);
+        siteTemp.push(retour[0]);
+        console.log("sitetemp:"); console.log(siteTemp[0]);
         // setDesRecettes(retour);
         // setEndAsync(true);
         console.log("dans loadSite:" + retour[0].sit_raison_sociale);
+
     } catch(e) {
        // traitement des erreurs
         console.log("erreur fct 'loadSite': ", e);
