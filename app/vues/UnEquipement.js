@@ -8,7 +8,7 @@ import { PtDeMes } from '../composants/PtDeMes';
 
 
 
-export default UnEquipement = ({navigation}) => {
+export default UnEquipement = ({route, navigation}) => {
 
   //fichier json local des points de mesures (cette etape est pour le dev avant la récupération via api)
   const ptMesure21 = require('../src/json/ptMesure21.json');
@@ -26,10 +26,13 @@ export default UnEquipement = ({navigation}) => {
     ></PtDeMes>
   );
 
+// console.log(route);
+// console.log(route.params.equipement.equ_nom);
+// {route.params.equipement.equ_nom}
 
   return (
     <View style={styles.body}>
-      <Text style={styles.nomEquipement}>Nom Equipement</Text>
+      <Text style={styles.nomEquipement}>{route.params.equipement.equ_nom}</Text>
       <Image
             style={styles.imageEquipement}
             source={require('../src/images/machine-production-1.jpg')}

@@ -47,7 +47,7 @@ export const Equipement = ({item, navigation}) => {
                     underlayColor="#DDDDDD"
                     onPress={() => {
                         // navigation.navigate('Detail', {uneRecette : item});
-                        navigation.navigate('UnEquipement');
+                        navigation.navigate('UnEquipement', {equipement: item});
                         console.log("touch: " + item.id);
                     }
                 }>
