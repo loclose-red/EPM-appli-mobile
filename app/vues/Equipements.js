@@ -45,6 +45,7 @@ export default Equipements = ({navigation}) => {
 
 useEffect(() => {
   loadSite();
+  loadEquipements();
 }, []);
 
 const loadSite = async () => {
@@ -59,6 +60,19 @@ const loadSite = async () => {
       console.log("erreur fct 'loadSite': ", e);
   }
 };
+const loadEquipements = async () => {
+  try {
+      const jsonValue = await AsyncStorage.getItem("@equipements");
+      let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+      console.log("dans loadEquipements:" + retour);
+      setLesEquipements(retour);
+      // console.log("dans loadEquipements:" + retour[0].equ_marque);
+  } catch(e) {
+     // traitement des erreurs
+      console.log("erreur fct 'loadEquipements': ", e);
+  }
+};
+
 
   // const lesEquipements = listeEquimements.default['hydra:member'];
   let copieEquipements = [...lesEquipements];

@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //site,equipements,pointsMesures,capteurs
-export const loadSite = async (siteTemp) => {
+export const loadSite = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem("@site");
         let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
