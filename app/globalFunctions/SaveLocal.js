@@ -37,5 +37,16 @@ export  const saveCapteurs = async (capteurs) =>{
         console.log("erreur fct 'saveCapteurs': ",e);
     }
   };
+export  const saveGrandeurs = async (grandeurs) =>{
+    try{
+        const jsonValue = JSON.stringify(grandeurs)
+        await AsyncStorage.setItem("@grandeurs", jsonValue)
+        console.log('dans saveGrandeurs');
+    }catch(e){
+        console.log("erreur fct 'saveGrandeurs': ",e);
+    }
+  };
+
+//   saveGrandeurs(grandeurs)
 
   // saveSite, saveEquipements, savePointsMesures, saveCapteurs

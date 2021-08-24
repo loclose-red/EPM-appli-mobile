@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {saveSite, saveEquipements, savePointsMesures, saveCapteurs} from '../globalFunctions/SaveLocal';
+import {saveSite, saveEquipements, savePointsMesures, saveCapteurs, saveGrandeurs} from '../globalFunctions/SaveLocal';
 import {loadSite, loadEquipements, loadPointsMesures, loadCapteurs} from '../globalFunctions/LoadLocal';
 
 
@@ -9,12 +9,14 @@ let site = [];
 let equipements = [];
 let pointsMesures = [];
 let capteurs = [];
+let grandeurs = [];
 
 //création d'indicateurs pour vérifier le bon déroulement des requetes API
 let fetchSiteFinish = false;
 let fetchEquipementsFinish = false;
 let fetchPointsMesuresFinish = false;
 let fetchCapteursFinish = false;
+let fetchGrandeursFinish = false;
 
 
 // site.push(5);   //pour ajouter une valeur dans un tableau
@@ -41,6 +43,7 @@ export function TestFunc1() {
   fetchCapteursFinish = false;
   
   getSiteAndEquipementsByIdSiteFromApi(1,signal);
+  getGrandeursFromApi(signal);
   // getEquipementAndPtMesureByIdEquiFromApi(1);
   // getPtDeMesAndCapteurByIdPtdeMesFromApi(21);
   // getCapteurByIdFromApi(4);
@@ -74,7 +77,8 @@ function checkFetch (controller) {
   if((fetchSiteFinish == false)
     ||(fetchEquipementsFinish == false)
     ||(fetchPointsMesuresFinish == false)
-    ||(fetchCapteursFinish == false))
+    ||(fetchCapteursFinish == false)
+    ||(fetchGrandeursFinish == false))
     {
     console.log('fetch erreur');
     controller.abort();
@@ -85,12 +89,13 @@ function checkFetch (controller) {
   }
 
   //si au moins un fetch a fonctionné, on sauvegarde avec async storage
-  if(fetchSiteFinish||fetchEquipementsFinish||fetchPointsMesuresFinish||fetchCapteursFinish){
+  if(fetchSiteFinish||fetchEquipementsFinish||fetchPointsMesuresFinish||fetchCapteursFinish||fetchGrandeursFinish){
     //console.log("dans save: " + site);
     saveSite(site);
     saveEquipements(equipements);
     savePointsMesures(pointsMesures);
     saveCapteurs(capteurs);
+    saveGrandeurs(grandeurs);
   }
 
 }
@@ -192,6 +197,20 @@ const getCapteurByIdFromApi = async (idCapteur,signal) =>{
     console.error(error);
   } finally {
     fetchCapteursFinish = true;
+    // console.log('dans finally ...');
+  }
+};
+
+const getGrandeursFromApi = async (signal) =>{
+  let grandeurs_sc = grandeurs;
+  try {
+    const response = await fetch(adresseServeur + 'api/grandeurs', {signal});
+    const json = await response.json();
+    grandeurs_sc.push(json);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    fetchGrandeursFinish = true;
     // console.log('dans finally ...');
   }
 };
