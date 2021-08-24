@@ -27,24 +27,24 @@ export default UnEquipement = ({route, navigation}) => {
   useEffect(() => {
     loadPointsMesures();
   }, []);
-  
+
   const loadPointsMesures = async () => {
     try {
-        const jsonValue = await AsyncStorage.getItem("@pointsMesures");
-        let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
-        console.log("dans loadPointsMesures:"); console.log(retour);
-        console.log(route.params.equipement.equ_photo_1);
+      const jsonValue = await AsyncStorage.getItem("@pointsMesures");
+      let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+      console.log("dans loadPointsMesures:"); console.log(retour);
+      console.log(route.params.equipement.equ_photo_1);
 
-        //filtre pour récupérer uniquement les points de l'equipement
-        let lesPtMesTemp = retour.filter(unPtMes => unPtMes.equipement == route.params.equipement["@id"]);
-        console.log(lesPtMesTemp);
+      //filtre pour récupérer uniquement les points de l'equipement
+      let lesPtMesTemp = retour.filter(unPtMes => unPtMes.equipement == route.params.equipement["@id"]);
+      console.log(lesPtMesTemp);
 
-        setTableauDesPoints(lesPtMesTemp);
-    } catch(e) {
-       // traitement des erreurs
-        console.log("erreur fct 'loadPointsMesures': ", e);
+      setTableauDesPoints(lesPtMesTemp);
+    } catch (e) {
+      // traitement des erreurs
+      console.log("erreur fct 'loadPointsMesures': ", e);
     }
-};
+  };
 
   const renderItem = ({ item }) => (
     <PtDeMes 

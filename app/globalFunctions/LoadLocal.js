@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-//site,equipements,pointsMesures,capteurs
+
 export const loadSite = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem("@site");
@@ -18,7 +18,7 @@ export const loadSite = async () => {
         console.log("erreur fct 'loadSite': ", e);
     }
 };
-//site,equipements,pointsMesures,capteurs
+
 export const loadEquipements = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem("@equipements");
@@ -31,7 +31,7 @@ export const loadEquipements = async () => {
         console.log("erreur fct 'loadEquipements': ", e);
     }
 };
-//site,equipements,pointsMesures,capteurs
+
 export const loadPointsMesures = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem("@pointsMesures");
@@ -44,7 +44,7 @@ export const loadPointsMesures = async () => {
         console.log("erreur fct 'loadPointsMesures': ", e);
     }
 };
-//site,equipements,pointsMesures,capteurs
+
 export const loadCapteurs = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem("@capteurs");
@@ -57,4 +57,3 @@ export const loadCapteurs = async () => {
         console.log("erreur fct 'loadCapteurs': ", e);
     }
 };
-//loadSite, loadEquipements, loadPointsMesures, loadCapteurs

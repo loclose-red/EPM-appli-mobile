@@ -3,14 +3,17 @@ import { View, Text, Button, TouchableHighlight, StyleSheet  } from 'react-nativ
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 export default UnPointDeMesure = ({route, navigation}) => {
   //fichier json local des points de mesures (cette etape est pour le dev avant la récupération via api)
   const ptMesure21 = require('../src/json/ptMesure21.json');
-  const capteur4 = require('../src/json/capteur4.json');
   const grandeurs = require('../src/json/grandeurs.json');
+
+  const [leCapteur, setLeCapteur] = useState([{}]);
 
 
   //récupération de la grandeur du point dans lesGrandeurs
@@ -22,7 +25,29 @@ export default UnPointDeMesure = ({route, navigation}) => {
     }
   });
 
-  console.log(route.params.unPtDeMes);
+  // console.log(route.params.unPtDeMes);
+
+  useEffect(() => {
+    loadCapteurs();
+  }, []);
+
+  const loadCapteurs = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem("@capteurs");
+        let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+        console.log("dans loadCapteur:"); console.log(retour);
+        console.log(route.params.unPtDeMes["@id"]);
+        //filtre pour récupérer uniquement les points de l'equipement
+        let leCateurTemp = retour.filter(unCapteur => unCapteur.ptMesures[0] == route.params.unPtDeMes["@id"]);
+        console.log(leCateurTemp);
+        setLeCapteur(leCateurTemp);
+
+    } catch(e) {
+       // traitement des erreurs
+        console.log("erreur fct 'loadCapteurs': ", e);
+    }
+};
+
 
   return (
     <View style={styles.body}>
@@ -48,19 +73,19 @@ export default UnPointDeMesure = ({route, navigation}) => {
         <Text style={styles.titreCapteur}>Capteur associé:</Text>
         <View style={styles.texteUnCap}>
           <Text style={styles.texteUnCapDescription}>Marque:</Text>
-          <Text style={styles.texteUnCapContenu}>{capteur4.cap_marque}</Text>
+          <Text style={styles.texteUnCapContenu}>{leCapteur[0].cap_marque}</Text>
           {/* Balise vide Utilisée pour l'allignement avec des flex: 1...*/}
           <Text style={styles.texteUnCapVide}></Text> 
         </View>
         <View style={styles.texteUnCap}>
           <Text style={styles.texteUnCapDescription}>Modèle:</Text>
-          <Text style={styles.texteUnCapContenu}>{capteur4.cap_modele}</Text>
+          <Text style={styles.texteUnCapContenu}>{leCapteur[0].cap_modele}</Text>
           {/* Balise vide Utilisée pour l'allignement avec des flex: 1...*/}
           <Text style={styles.texteUnCapVide}></Text> 
         </View>
         <View style={styles.texteUnCap}>
           <Text style={styles.texteUnCapDescription}>N° série:</Text>
-          <Text style={styles.texteUnCapContenu}>{capteur4.cap_serie}</Text>
+          <Text style={styles.texteUnCapContenu}>{leCapteur[0].cap_serie}</Text>
           {/* Balise vide Utilisée pour l'allignement avec des flex: 1...*/}
           <Text style={styles.texteUnCapVide}></Text> 
         </View>
@@ -74,6 +99,7 @@ export default UnPointDeMesure = ({route, navigation}) => {
             // navigation.navigate('Detail', {uneRecette : item});
             // navigation.navigate('UnEquipement');
             console.log("touch");
+            console.log(leCapteur);
             }
           }>
             <View>
