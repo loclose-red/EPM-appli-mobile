@@ -1,3 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 const adresseServeur = "http://192.168.1.13:8000/";
 let site = [];
 let equipements = [];
@@ -13,6 +16,7 @@ let fetchCapteursFinish = false;
 
 // site.push(5);   //pour ajouter une valeur dans un tableau
 // site.length = 0;   // pour effacer le tableau et ses références
+
 
 
 
@@ -53,7 +57,20 @@ export function TestFunc1() {
 
 }
 
+
+// fonction pour le dev: test de lecture mémoire
+export function lectureMemoire() {
+  loadSite();
+}
+
+//site,equipements,pointsMesures,capteurs
+
+
+
+
+// cette fonction s'execute après le temps du time out
 function checkFetch (controller) {
+  // on arrête les fetch en cours si tout n'est pas terminé
   if((fetchSiteFinish == false)
     ||(fetchEquipementsFinish == false)
     ||(fetchPointsMesuresFinish == false)
@@ -66,7 +83,53 @@ function checkFetch (controller) {
     console.log('fetch ok');
     
   }
+
+  //si au moins un fetch a fonctionné, on sauvegarde avec async storage
+  if(fetchSiteFinish||fetchEquipementsFinish||fetchPointsMesuresFinish||fetchCapteursFinish){
+    //console.log("dans save: " + site);
+    saveSite(site);
+    // async (site,equipements,pointsMesures,capteurs)=>{
+    //   try{
+    //     const jsonValueSite = JSON.stringify(site)
+    //     await AsyncStorage.setItem("@site", jsonValueSite)
+    //     const jsonValueEquipements = JSON.stringify(equipements)
+    //     await AsyncStorage.setItem("@equipements", jsonValueEquipements)
+    //     const jsonValuePointsMesures = JSON.stringify(pointsMesures)
+    //     await AsyncStorage.setItem("@pointsMesures", jsonValuePointsMesures)
+    //     const jsonValueCapteurs = JSON.stringify(capteurs)
+    //     await AsyncStorage.setItem("@capteurs", jsonValueCapteurs)
+    //   }catch(e){
+    //     console.log("erreur 'save' dans fct checkFetch: ",e);
+    //   }
+    // }
+  }
+
 }
+
+const saveSite = async (site) =>{
+  try{
+      const jsonValue = JSON.stringify(site)
+      await AsyncStorage.setItem("@site", jsonValue)
+      console.log('dans save');
+  }catch(e){
+      console.log("erreur fct 'saveSite': ",e);
+  }
+};
+const loadSite = async () => {
+  try {
+      const jsonValue = await AsyncStorage.getItem("@site");
+      let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+      // setDesRecettes(retour);
+      // setEndAsync(true);
+      console.log("dans loadSite:" + retour[0].sit_raison_sociale);
+  } catch(e) {
+     // traitement des erreurs
+      console.log("erreur fct 'loadSite': ", e);
+  }
+};
+
+
+
 
 export function getAllFromApiByIdSite(idSite) {
   console.log("dans fonction globale");

@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { TextCustom } from '../composants/TextCustom';
 
 //import de fonctions globales
-import { TestFunc1, stopFetch } from '../globalFunctions/GetFromApi';
+import { TestFunc1, lectureMemoire } from '../globalFunctions/GetFromApi';
 
 
 export default Login = ({route, navigation}) => {
@@ -151,7 +151,7 @@ export default Login = ({route, navigation}) => {
                 <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
                         console.log("click sur test");
-                        stopFetch();
+                        lectureMemoire();
                     }}
                 />
             <ActivityIndicator size="large" color="#0000ff" />
