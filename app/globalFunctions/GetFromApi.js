@@ -63,7 +63,7 @@ export function lectureMemoire() {
   loadSite();
 }
 
-//site,equipements,pointsMesures,capteurs
+
 
 
 
@@ -88,20 +88,9 @@ function checkFetch (controller) {
   if(fetchSiteFinish||fetchEquipementsFinish||fetchPointsMesuresFinish||fetchCapteursFinish){
     //console.log("dans save: " + site);
     saveSite(site);
-    // async (site,equipements,pointsMesures,capteurs)=>{
-    //   try{
-    //     const jsonValueSite = JSON.stringify(site)
-    //     await AsyncStorage.setItem("@site", jsonValueSite)
-    //     const jsonValueEquipements = JSON.stringify(equipements)
-    //     await AsyncStorage.setItem("@equipements", jsonValueEquipements)
-    //     const jsonValuePointsMesures = JSON.stringify(pointsMesures)
-    //     await AsyncStorage.setItem("@pointsMesures", jsonValuePointsMesures)
-    //     const jsonValueCapteurs = JSON.stringify(capteurs)
-    //     await AsyncStorage.setItem("@capteurs", jsonValueCapteurs)
-    //   }catch(e){
-    //     console.log("erreur 'save' dans fct checkFetch: ",e);
-    //   }
-    // }
+    saveEquipements(equipements);
+    savePointsMesures(pointsMesures);
+    saveCapteurs(capteurs);
   }
 
 }
@@ -110,11 +99,22 @@ const saveSite = async (site) =>{
   try{
       const jsonValue = JSON.stringify(site)
       await AsyncStorage.setItem("@site", jsonValue)
-      console.log('dans save');
+      console.log('dans saveSite');
   }catch(e){
       console.log("erreur fct 'saveSite': ",e);
   }
 };
+
+const saveEquipements = async (equipements) =>{
+  try{
+      const jsonValue = JSON.stringify(equipements)
+      await AsyncStorage.setItem("@equipements", jsonValue)
+      console.log('dans save equipements');
+  }catch(e){
+      console.log("erreur fct 'saveEquipements': ",e);
+  }
+};
+//site,equipements,pointsMesures,capteurs
 const loadSite = async () => {
   try {
       const jsonValue = await AsyncStorage.getItem("@site");
