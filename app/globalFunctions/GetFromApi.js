@@ -114,6 +114,24 @@ const saveEquipements = async (equipements) =>{
       console.log("erreur fct 'saveEquipements': ",e);
   }
 };
+const savePointsMesures = async (pointsMesures) =>{
+  try{
+      const jsonValue = JSON.stringify(pointsMesures)
+      await AsyncStorage.setItem("@pointsMesures", jsonValue)
+      console.log('dans savePointsMesures');
+  }catch(e){
+      console.log("erreur fct 'savePointsMesures': ",e);
+  }
+};
+const saveCapteurs = async (capteurs) =>{
+  try{
+      const jsonValue = JSON.stringify(capteurs)
+      await AsyncStorage.setItem("@capteurs", jsonValue)
+      console.log('dans saveCapteurs');
+  }catch(e){
+      console.log("erreur fct 'saveCapteurs': ",e);
+  }
+};
 //site,equipements,pointsMesures,capteurs
 const loadSite = async () => {
   try {
