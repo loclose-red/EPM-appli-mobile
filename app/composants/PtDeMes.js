@@ -31,7 +31,7 @@ export const PtDeMes = ({item, navigation}) => {
                     underlayColor="#DDDDDD"
                     onPress={() => {
                         // navigation.navigate('Detail', {uneRecette : item});
-                        navigation.navigate('UnPointDeMesure');
+                        navigation.navigate('UnPointDeMesure' , {unPtDeMes: item});
                         console.log("touch: " + item.id);
                     }
                 }>

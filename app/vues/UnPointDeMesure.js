@@ -6,7 +6,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 
 
-export default UnPointDeMesure = ({navigation}) => {
+export default UnPointDeMesure = ({route, navigation}) => {
   //fichier json local des points de mesures (cette etape est pour le dev avant la récupération via api)
   const ptMesure21 = require('../src/json/ptMesure21.json');
   const capteur4 = require('../src/json/capteur4.json');
@@ -22,17 +22,19 @@ export default UnPointDeMesure = ({navigation}) => {
     }
   });
 
+  console.log(route.params.unPtDeMes);
+
   return (
     <View style={styles.body}>
       <View style={styles.sectionPointDeMesure}>
         <View style={styles.texteUnPoint}>
           <Text style={styles.texteUnPointDescription}>Nom:</Text>
-          <Text style={styles.texteUnPointContenu}>{ptMesure21.pt_mes_nom}</Text>
+          <Text style={styles.texteUnPointContenu}>{route.params.unPtDeMes.pt_mes_nom}</Text>
           <Text style={styles.texteUnPointVide}></Text>
         </View>
         <View style={styles.texteUnPoint}>
           <Text style={styles.texteUnPointDescription}>Position:</Text>
-          <Text style={styles.texteUnPointContenu}>{ptMesure21.pt_mes_position}</Text>
+          <Text style={styles.texteUnPointContenu}>{route.params.unPtDeMes.pt_mes_position}</Text>
           <Text style={styles.texteUnPointVide}></Text>
         </View>
         <View style={styles.texteUnPoint}>
