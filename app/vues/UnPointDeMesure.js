@@ -14,33 +14,58 @@ export default UnPointDeMesure = ({route, navigation}) => {
   const grandeurs = require('../src/json/grandeurs.json');
 
   const [leCapteur, setLeCapteur] = useState([{}]);
+  const [laGrandeur, setLaGrandeur] = useState([{}]);
 
 
   //récupération de la grandeur du point dans lesGrandeurs
-  let laGrandeur = "";
-  const tableauGrandeurs = grandeurs["hydra:member"];
-  tableauGrandeurs.forEach(element => {
-    if(ptMesure21.grandeur == element["@id"]){
-      laGrandeur = element.gra_unite;
-    }
-  });
+  
+  // const tableauGrandeurs = grandeurs["hydra:member"];
+  // tableauGrandeurs.forEach(element => {
+  //   if(ptMesure21.grandeur == element["@id"]){
+  //     setLaGrandeur(element.gra_unite);
+  //   }
+  // });
 
   // console.log(route.params.unPtDeMes);
 
   useEffect(() => {
     loadCapteurs();
+    loadGrandeur();
   }, []);
 
+  const loadGrandeur = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@grandeurs");
+      let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+      let tableauGrandeurs = [];
+      tableauGrandeurs = retour[0]["hydra:member"];
+      console.log("dans loadGrandeurs:"); console.log(tableauGrandeurs);
+      
+      console.log(route.params.unPtDeMes);
+      // console.log(route.params.equipement.equ_photo_1);
+
+      //filtre pour récupérer uniquement la grandeur du capteur
+      let laGrandeurTemp = tableauGrandeurs.filter(uneGrandeur => uneGrandeur["@id"] == route.params.unPtDeMes.grandeur);
+      console.log(laGrandeurTemp);
+      setLaGrandeur(laGrandeurTemp);
+
+      // setTableauDesPoints(lesPtMesTemp);
+    } catch (e) {
+      // traitement des erreurs
+      console.log("erreur fct 'loadPointsMesures': ", e);
+    }
+  };
   const loadCapteurs = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem("@capteurs");
         let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
         console.log("dans loadCapteur:"); console.log(retour);
         console.log(route.params.unPtDeMes["@id"]);
-        //filtre pour récupérer uniquement les points de l'equipement
+        //filtre pour récupérer uniquement le capteur du point de mesure
         let leCateurTemp = retour.filter(unCapteur => unCapteur.ptMesures[0] == route.params.unPtDeMes["@id"]);
         console.log(leCateurTemp);
         setLeCapteur(leCateurTemp);
+        
 
     } catch(e) {
        // traitement des erreurs
@@ -64,7 +89,7 @@ export default UnPointDeMesure = ({route, navigation}) => {
         </View>
         <View style={styles.texteUnPoint}>
           <Text style={styles.texteUnPointDescription}>Grandeur:</Text>
-          <Text style={styles.texteUnPointContenu}>{laGrandeur}</Text>
+          <Text style={styles.texteUnPointContenu}>{laGrandeur[0]["gra_unite"]}</Text>
           <Text style={styles.texteUnPointVide}></Text>
         </View>
       </View>

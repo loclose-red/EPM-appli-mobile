@@ -28,6 +28,7 @@ export default UnEquipement = ({route, navigation}) => {
     loadPointsMesures();
   }, []);
 
+  
   const loadPointsMesures = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem("@pointsMesures");
@@ -45,6 +46,7 @@ export default UnEquipement = ({route, navigation}) => {
       console.log("erreur fct 'loadPointsMesures': ", e);
     }
   };
+
 
   const renderItem = ({ item }) => (
     <PtDeMes 
