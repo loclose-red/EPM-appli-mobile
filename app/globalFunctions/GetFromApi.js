@@ -1,7 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {saveSite, saveEquipements, savePointsMesures, saveCapteurs} from '../globalFunctions/SaveLocal';
 
-const adresseServeur = "http://192.168.1.13:8000/";
+
+const adresseServeur = "http://192.168.43.79:8000/";
 let site = [];
 let equipements = [];
 let pointsMesures = [];
@@ -95,43 +97,7 @@ function checkFetch (controller) {
 
 }
 
-const saveSite = async (site) =>{
-  try{
-      const jsonValue = JSON.stringify(site)
-      await AsyncStorage.setItem("@site", jsonValue)
-      console.log('dans saveSite');
-  }catch(e){
-      console.log("erreur fct 'saveSite': ",e);
-  }
-};
 
-const saveEquipements = async (equipements) =>{
-  try{
-      const jsonValue = JSON.stringify(equipements)
-      await AsyncStorage.setItem("@equipements", jsonValue)
-      console.log('dans save equipements');
-  }catch(e){
-      console.log("erreur fct 'saveEquipements': ",e);
-  }
-};
-const savePointsMesures = async (pointsMesures) =>{
-  try{
-      const jsonValue = JSON.stringify(pointsMesures)
-      await AsyncStorage.setItem("@pointsMesures", jsonValue)
-      console.log('dans savePointsMesures');
-  }catch(e){
-      console.log("erreur fct 'savePointsMesures': ",e);
-  }
-};
-const saveCapteurs = async (capteurs) =>{
-  try{
-      const jsonValue = JSON.stringify(capteurs)
-      await AsyncStorage.setItem("@capteurs", jsonValue)
-      console.log('dans saveCapteurs');
-  }catch(e){
-      console.log("erreur fct 'saveCapteurs': ",e);
-  }
-};
 //site,equipements,pointsMesures,capteurs
 const loadSite = async () => {
   try {
