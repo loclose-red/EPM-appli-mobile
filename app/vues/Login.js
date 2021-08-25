@@ -17,6 +17,7 @@ import { TextCustom } from '../composants/TextCustom';
 //import de fonctions globales
 import { GetAndSaveAll } from '../globalFunctions/GetFromApi';
 import {loadSite} from '../globalFunctions/LoadLocal';
+import {postMesure} from '../globalFunctions/PostApi';
 
 
 // globaleAdresseServeur
@@ -181,6 +182,7 @@ export default Login = ({route, navigation}) => {
                 <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
                         console.log("click sur test");
+                        postMesure();
                         // loadSite();
                         // loadAdresseServeur();
                     }}
