@@ -55,8 +55,9 @@ const loadSite = async () => {
       let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
       if((retour != null) && (retour.length != 0)){
         setLeSite(retour);
+        setNomDuSite(retour[0].sit_raison_sociale)
       }      
-      console.log("dans ld site:"); console.log(leSite);
+      console.log("dans loadSite:"); console.log(retour);
 
   } catch(e) {
      // traitement des erreurs
@@ -97,16 +98,12 @@ const loadEquipements = async () => {
     <View style={styles.body}>
       <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
-                        console.log("click get from API");
-                        TestFunc1();
-                        
+                        console.log("click get from API");                     
                     }}
                 />
       
       <View style={styles.titre}>
         <Text style={styles.titreDescription}>site:</Text>
-        {/* <Text style={styles.titreContenu}>{leSite[0].sit_raison_sociale}</Text> */}
-        {/* <Text style={styles.titreContenu}>{leSite[0]}</Text> */}
         <Text style={styles.titreContenu}>{nomDuSite}</Text>
       </View>
 
@@ -130,13 +127,10 @@ const loadEquipements = async () => {
 
 const styles = StyleSheet.create({
   body:{
-    
     marginLeft: 20,
     marginRight: 20,
-      // flex: 1,
-      // alignItems: 'center',
-      // justifyContent: 'center',
   },
+
   titre:{
     margin:10,
     padding:10,
@@ -144,23 +138,25 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection:"row"
   },
+
   titreDescription:{
     textAlignVertical:"bottom",
   },
+
   titreContenu:{
     width: "100%",
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center"
   },
+
   infoSynchro:{
     margin: 10,
     padding: 10,
     backgroundColor: "lightgrey",
     borderRadius: 5,
-
-
   },
+
   infoSynchroDate:{
     fontWeight: "bold",
   },
