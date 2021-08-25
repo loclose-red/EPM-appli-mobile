@@ -24,6 +24,7 @@ export default Equipements = ({route, navigation}) => {
   // console.log("mes images: " + Images);
   const [lesEquipements, setLesEquipements] = useState([{}]);
   const [leSite, setLeSite] = useState([{}]);
+  const [nomDuSite, setNomDuSite] = useState("Pas de nom!");
 
   //Configutation de la barre de navigation
   React.useLayoutEffect(() => {
@@ -52,7 +53,9 @@ const loadSite = async () => {
   try {
       const jsonValue = await AsyncStorage.getItem("@site");
       let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
-      setLeSite(retour);
+      if((retour != null) && (retour.length != 0)){
+        setLeSite(retour);
+      }      
       console.log("dans ld site:"); console.log(leSite);
 
   } catch(e) {
@@ -102,7 +105,9 @@ const loadEquipements = async () => {
       
       <View style={styles.titre}>
         <Text style={styles.titreDescription}>site:</Text>
-        <Text style={styles.titreContenu}>{leSite[0].sit_raison_sociale}</Text>
+        {/* <Text style={styles.titreContenu}>{leSite[0].sit_raison_sociale}</Text> */}
+        {/* <Text style={styles.titreContenu}>{leSite[0]}</Text> */}
+        <Text style={styles.titreContenu}>{nomDuSite}</Text>
       </View>
 
       <View style={styles.infoSynchro}>

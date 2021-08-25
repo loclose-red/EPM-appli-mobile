@@ -25,7 +25,7 @@ let fetchGrandeursFinish = false;
 
 
 
-export function TestFunc1() {
+export function GetAndSaveAll() {
 
   let controller = new AbortController();
   let signal = controller.signal;
@@ -44,23 +44,10 @@ export function TestFunc1() {
   
   getSiteAndEquipementsByIdSiteFromApi(1,signal);
   getGrandeursFromApi(signal);
-  // getEquipementAndPtMesureByIdEquiFromApi(1);
-  // getPtDeMesAndCapteurByIdPtdeMesFromApi(21);
-  // getCapteurByIdFromApi(4);
-
-  setTimeout(() => console.log('contenu tableau site ' + site[0].sit_raison_sociale), 10000);
-  setTimeout(() => console.log('contenu tableau equipements ' + equipements[0].equ_marque), 10500);
-  setTimeout(() => console.log('contenu tableau points de mesures ' + pointsMesures[0].pt_mes_nom), 11000);
-  setTimeout(() => console.log('contenu tableau capteurs ' + capteurs[0].cap_marque), 11500);
-  setTimeout(() => console.log('fetchSiteFinish: ' + fetchSiteFinish), 12500);
-  setTimeout(() => console.log('fetchEquipementsFinish: ' + fetchEquipementsFinish), 12500);
-  setTimeout(() => console.log('fetchPointsMesuresFinish: ' + fetchPointsMesuresFinish), 12500);
-  setTimeout(() => console.log('fetchCapteursFinish: ' + fetchCapteursFinish), 12500);
 
   //mise en place d'un timeOut de 15 secondes sur les fetch
   setTimeout(() => checkFetch (controller), 15000);
   
-
 }
 
 
@@ -81,8 +68,7 @@ function checkFetch (controller) {
     ||(fetchGrandeursFinish == false))
     {
     console.log('fetch erreur');
-    controller.abort();
-    
+    controller.abort();    
   }else{
     console.log('fetch ok');
     
@@ -90,7 +76,6 @@ function checkFetch (controller) {
 
   //si au moins un fetch a fonctionné, on sauvegarde avec async storage
   if(fetchSiteFinish||fetchEquipementsFinish||fetchPointsMesuresFinish||fetchCapteursFinish||fetchGrandeursFinish){
-    //console.log("dans save: " + site);
     saveSite(site);
     saveEquipements(equipements);
     savePointsMesures(pointsMesures);
@@ -99,11 +84,6 @@ function checkFetch (controller) {
   }
 
 }
-
-
-
-
-
 
 export function getAllFromApiByIdSite(idSite) {
   console.log("dans fonction globale");

@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { TextCustom } from '../composants/TextCustom';
 
 //import de fonctions globales
-import { TestFunc1 } from '../globalFunctions/GetFromApi';
+import { GetAndSaveAll } from '../globalFunctions/GetFromApi';
 import {loadSite} from '../globalFunctions/LoadLocal';
 
 
@@ -174,7 +174,7 @@ export default Login = ({route, navigation}) => {
                 <Button style={styles.btn} title="get from API" color="blue"
                     onPress={() => {
                         console.log("click get from API");
-                        TestFunc1();
+                        GetAndSaveAll();
                         
                     }}
                 />
