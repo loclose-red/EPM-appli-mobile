@@ -3,13 +3,14 @@ const bodyTest = {
     "capteur": "/api/capteurs/1",
     "ptmesure": "/api/pt_mesures/21",
     "mesValeur1": "86.00",
-    "mesDate": "2021-09-17T15:34:31.732Z"
+    "mesDate": "2021-09-17T15:34:31.732Z",
+    "mesObjJson": {"recoucou":"recoucou"}
   };
 
 //'http://192.168.43.79:8000/api/mesures'
 
 
-export const postMesure = async (url) => {
+export const postMesure = async (url, body) => {
     try {
         const response = await fetch('http://192.168.43.79:8000/api/mesures', {
             method: 'POST',
