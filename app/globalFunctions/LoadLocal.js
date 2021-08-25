@@ -1,3 +1,6 @@
+// cet ensemble de fonctions sert uniquement pour le dev debug
+
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -7,8 +10,6 @@ export const loadSite = async () => {
         let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
         let nomSite = retour[0].sit_raison_sociale;
         console.log(retour[0]);
-        siteTemp.push(retour[0]);
-        console.log("sitetemp:"); console.log(siteTemp[0]);
         // setDesRecettes(retour);
         // setEndAsync(true);
         console.log("dans loadSite:" + retour[0].sit_raison_sociale);
@@ -57,3 +58,22 @@ export const loadCapteurs = async () => {
         console.log("erreur fct 'loadCapteurs': ", e);
     }
 };
+export const loadAdresseServeur = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem("@adresseServeur");
+        let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+        // setDesRecettes(retour);
+        // setEndAsync(true);
+        console.log("dans loadAdresseServeur:");
+        console.log(retour);
+        if (retour != null){
+            return retour[0];
+        }else{
+            return "";
+        }
+    } catch(e) {
+       // traitement des erreurs
+        console.log("erreur fct 'loadAdresseServeur': ", e);
+    }
+};
+

@@ -1,19 +1,39 @@
-import * as React from 'react';
+// import * as React from 'react';
 import { View, Text, TextInput, TouchableHighlight, Button, Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useEffect } from 'react';
 
 //import composants internes
 import { TextCustom } from '../composants/TextCustom';
 
 
 
-export default Configuration = ({navigation}) => {
-  const [adresseServeur, setAdresseServeur] = React.useState("");
+export default Configuration = ({route, navigation}) => {
+  const [adresseServeur, setAdresseServeur] = React.useState("Adresse serveur");
 
   //variable utilisée pour afficher ou effacer des composant lors de la saisie de l'adresse serveur
   const [showComponent, setShowComponent] = React.useState(true);
+
+  const saveAdresseServeur = async (adresseServeur)=>{
+    try{
+        const jsonValue = JSON.stringify(adresseServeur)
+        await AsyncStorage.setItem("@adresseServeur", jsonValue)
+        console.log('dans saveAdresseServeur');
+    }catch(e){
+        console.log("erreur fct 'saveAdresseServeur': ",e);
+    }
+  }
+  console.log("pour test dans config");
+  console.log(route.params.adresseServeur);
+  useEffect(() => {
+    if ((route.params.adresseServeur) != ""){
+      setAdresseServeur(route.params.adresseServeur);
+    }
+  }, []);
+  
 
   return (
     <View style={styles.body}>
@@ -37,12 +57,13 @@ export default Configuration = ({navigation}) => {
             style={styles.input}
             onChangeText={setAdresseServeur}
             value={adresseServeur}
-            placeholder="Adresse serveur"
+            placeholder = {adresseServeur}
             onFocus={() => { //quand on prend le focus, on affiche uniquement les champs de saisie
               setShowComponent(false);
             }}
             onSubmitEditing={() => { //quand on perd le focus, on affiche toute la page
               setShowComponent(true);
+              saveAdresseServeur([adresseServeur]);
             }}
             />
         </View>

@@ -13,7 +13,7 @@ import { images } from '../globalFunctions/ImageRequire';
 
 
 export default UnEquipement = ({route, navigation}) => {
-  const [tableauDesPoints, setTableauDesPoints] = useState([{}]);
+  const [tableauDesPoints, setTableauDesPoints] = useState([{"id":1}]);//on affecte un id pour éviter un message d'erreur au premier lancement de l'appli pour la flat list
 
   //fichier json local des points de mesures (cette etape est pour le dev avant la récupération via api)
   const ptMesure21 = require('../src/json/ptMesure21.json');

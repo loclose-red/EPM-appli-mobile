@@ -5,6 +5,8 @@ import { View, Text, Image, Button, TextInput, ActivityIndicator, StyleSheet } f
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import localStyles from '../styles/localStyles';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -14,14 +16,17 @@ import { TextCustom } from '../composants/TextCustom';
 
 //import de fonctions globales
 import { TestFunc1 } from '../globalFunctions/GetFromApi';
-import {loadSite, loadEquipements, loadPointsMesures, loadCapteurs} from '../globalFunctions/LoadLocal';
+import {loadSite} from '../globalFunctions/LoadLocal';
 
-const adresseServeur = "http://192.168.43.79:8000/";
+
+// globaleAdresseServeur
 
 export default Login = ({route, navigation}) => {
     const [logName, onChangeLogName] = useState("");
     const [passWord, onChangePassword] = useState("");
     const [usersFromServeur, setUsersFromServer] = useState([]);
+    const [adresseServeur, setAdresseServeur] = useState("");
+    // const [adresseServeur, setAdresseServeur] = useState("http://192.168.43.79:8000/");
 
     //Ce local user à une valeur par défaut pour le dev 
     //Ce paramètre sera persisté en mémoire par la suite
@@ -46,7 +51,25 @@ export default Login = ({route, navigation}) => {
     //variable utilisée pour afficher ou effacer des composant lors de la saisie du log-pass
     const [showComponent, setShowComponent] = useState(true);
 
+    useEffect(() => {
+        loadAdresseServeur();
+    }, []);
 
+    const loadAdresseServeur = async () => {
+        try {
+        const jsonValue = await AsyncStorage.getItem("@adresseServeur");
+        let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+        console.log("dans loadAdresseServeur vue login:"); console.log(retour);
+        if (retour != null){
+            setAdresseServeur(retour[0]);
+        }else{
+            setAdresseServeur("");
+        }
+        } catch (e) {
+        // traitement des erreurs
+        console.log("erreur fct 'loadAdresseServeur' dans vue login: ", e);
+        }
+    };
 
     const verifLogName = () => {
 
@@ -142,7 +165,7 @@ export default Login = ({route, navigation}) => {
                     onPress={() => {
                         console.log("click sur validez");
                         verifLogName();
-                        navigation.navigate('Equipements');
+                        navigation.navigate('Equipements', {adresseServeur: adresseServeur});
                     }}
                     title="Validez"
                     // color="#841584"
@@ -158,10 +181,8 @@ export default Login = ({route, navigation}) => {
                 <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
                         console.log("click sur test");
-                        loadSite();
-                        loadEquipements();
-                        loadPointsMesures();
-                        loadCapteurs();
+                        // loadSite();
+                        // loadAdresseServeur();
                     }}
                 />
             <ActivityIndicator size="large" color="#0000ff" />

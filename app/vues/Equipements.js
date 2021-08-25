@@ -19,7 +19,7 @@ import * as listeEquimements from '../src/json/equipements.json';
 
 
 
-export default Equipements = ({navigation}) => {
+export default Equipements = ({route, navigation}) => {
   // console.log(listeEquimements.default['hydra:member']);
   // console.log("mes images: " + Images);
   const [lesEquipements, setLesEquipements] = useState([{}]);
@@ -33,7 +33,7 @@ export default Equipements = ({navigation}) => {
                                 activeOpacity={0.9}
                                 underlayColor="#DDDDDD"
                                 onPress={() => {
-                                  navigation.navigate('Configuration');
+                                  navigation.navigate('Configuration', {adresseServeur: route.params.adresseServeur});
                                     console.log("on press bar nav");
                                   }
                                 }>
