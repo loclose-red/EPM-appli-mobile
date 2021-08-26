@@ -44,6 +44,7 @@ export default Login = ({route, navigation}) => {
                 "/api/sites/1"
             ]}
     ]);
+    const [idLocalSite, setIdLocalSite] = useState("");
     const [localSite, setLocalSite] = useState([]);
     const [localEquipements, setLocalEquipements] = useState([]);
     const [localPointsMesures, setLocalPointsMesures] = useState([]);
@@ -74,27 +75,26 @@ export default Login = ({route, navigation}) => {
 
     const verifLogName = () => {
 
-        console.log("dans verifLogName");
-        console.log(localUser);
         //récupération de l'id du site correspondant au User (voir structure Json User)
-        let cheminSite = "";
-        console.log("cheminsite: " + cheminSite);
+        //si le log existe on le charge sinon on prend le User par défaut
+        //Ce fonctionnement sera à changer lors de la véritable autentification
         let idSite = "";
-        if(localUser[0].site.length > 0){
-            cheminSite = localUser[0].site[0];
-            idSite = cheminSite.replace("/api/sites/","");
-        };        
-        console.log(idSite);
-
+        let unUserTemp = [...localUser];            
         let userFind = false;
         usersFromServeur.forEach(userFromServer => {
             if(userFromServer.logname == logName){
                 userFind = true;
-                // console.log(userFromServer);
+                unUserTemp = [userFromServer];
                 setLocalUser([userFromServer]);
             }
         });
-        userFind ? console.log("yes") : console.log("no");
+        if(unUserTemp[0].site.length > 0){
+            cheminSite = unUserTemp[0].site[0];
+            idSite = cheminSite.replace("/api/sites/","");
+            setIdLocalSite(idSite)
+        };
+        userFind ? console.log("yes") : console.log("no"); //pour la phase dev
+        navigation.navigate('Equipements', {adresseServeur: adresseServeur,idSite : idSite});
 
     };
     
@@ -163,9 +163,9 @@ export default Login = ({route, navigation}) => {
                 <Button
                     style={styles.btn}
                     onPress={() => {
-                        console.log("click sur validez");
                         verifLogName();
-                        navigation.navigate('Equipements', {adresseServeur: adresseServeur});
+                        console.log("click sur validez");
+                        
                     }}
                     title="Validez"
                     // color="#841584"

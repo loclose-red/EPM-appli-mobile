@@ -34,7 +34,7 @@ export default Equipements = ({route, navigation}) => {
                                 activeOpacity={0.9}
                                 underlayColor="#DDDDDD"
                                 onPress={() => {
-                                  navigation.navigate('Configuration', {adresseServeur: route.params.adresseServeur});
+                                  navigation.navigate('Configuration', {adresseServeur: route.params.adresseServeur, idSite : route.params.idSite});
                                     console.log("on press bar nav");
                                   }
                                 }>

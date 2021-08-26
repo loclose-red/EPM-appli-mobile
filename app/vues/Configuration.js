@@ -76,9 +76,9 @@ export default Configuration = ({route, navigation}) => {
               activeOpacity={0.5}
               underlayColor="#DDDDDD"
               onPress={() => {
-                GetAndSaveAll();
-              // navigation.navigate('UnEquipement');
-              console.log("sync");
+                console.log("sync");
+                GetAndSaveAll(route.params.idSite);
+                console.log(route.params.idSite);
               }
               }>
               <View style={styles.blocBtn}>

@@ -25,7 +25,7 @@ let fetchGrandeursFinish = false;
 
 
 
-export function GetAndSaveAll() {
+export function GetAndSaveAll(idSite) {
 
   let controller = new AbortController();
   let signal = controller.signal;
@@ -41,8 +41,10 @@ export function GetAndSaveAll() {
   fetchEquipementsFinish = false;
   fetchPointsMesuresFinish = false;
   fetchCapteursFinish = false;
+
   
-  getSiteAndEquipementsByIdSiteFromApi(1,signal);
+  
+  getSiteAndEquipementsByIdSiteFromApi(idSite,signal);
   getGrandeursFromApi(signal);
 
   //mise en place d'un timeOut de 15 secondes sur les fetch
