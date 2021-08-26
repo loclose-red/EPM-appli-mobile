@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { TextCustom } from '../composants/TextCustom';
 
 //import de fonctions globales
-import { GetAndSaveAll } from '../globalFunctions/GetFromApi';
+import { GetAndSaveAll, getUsersFromApi } from '../globalFunctions/GetFromApi';
 import {loadSite} from '../globalFunctions/LoadLocal';
 import {postMesure} from '../globalFunctions/PostApi';
 
@@ -93,25 +93,20 @@ export default Login = ({route, navigation}) => {
         userFind ? console.log("yes") : console.log("no");
 
     };
-    const getUsersFromApi = async () => {
-        try {
-        //  const response = await fetch('https://reactnative.dev/movies.json');
-         const response = await fetch(adresseServeur + 'api/utilisateurs?page=1');
-         const json = await response.json();
-         setUsersFromServer(json["hydra:member"]);
-        //  console.log(json);
-         
-         console.log('dans getUsersFromApi');
-       } catch (error) {
-         console.error(error);
-       } finally {
-        //  setLoading(false);
-       }
-     }
-     useEffect(() => {
-        getUsersFromApi();
-      }, []);
-
+    
+    useEffect(() => {    
+        // on récupère tous les users avec l'api
+        //ceci est uniquement pour la phase dev
+        // il faudra trouver une autre façon
+        async function uneFonction (){
+            // let tableauUsers = [];
+            const tableauUsers = await getUsersFromApi();
+            console.log("dans use effect vue login");
+            console.log(tableauUsers);
+            setUsersFromServer(tableauUsers);
+        }
+        uneFonction ();   
+    }, []);
 
     return(
         // <View style={{backgroundColor : 'yellow',}}>
@@ -182,7 +177,8 @@ export default Login = ({route, navigation}) => {
                 <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
                         console.log("click sur test");
-                        postMesure();
+                        console.log(usersFromServeur);
+                        // postMesure();
                         // loadSite();
                         // loadAdresseServeur();
                     }}

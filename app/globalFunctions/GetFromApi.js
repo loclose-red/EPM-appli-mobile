@@ -122,6 +122,8 @@ const getSiteAndEquipementsByIdSiteFromApi = async (idSite,signal) => {
 
 };
 
+//cette fonction déclenche en cascade les autres fonctions
+//
 const getEquipementAndPtMesureByIdEquiFromApi = async (idEqui,signal) =>{
   let equipements_sc = equipements;
   try {
@@ -167,6 +169,7 @@ const getPtDeMesAndCapteurByIdPtdeMesFromApi = async (idPtMes,signal) =>{
   }
 };
 
+//fonction interne déclenchée par les fonctions précédentes
 const getCapteurByIdFromApi = async (idCapteur,signal) =>{
   let capteurs_sc = capteurs;
   try {
@@ -181,6 +184,7 @@ const getCapteurByIdFromApi = async (idCapteur,signal) =>{
   }
 };
 
+//fonction interne
 const getGrandeursFromApi = async (signal) =>{
   let grandeurs_sc = grandeurs;
   try {
@@ -194,3 +198,31 @@ const getGrandeursFromApi = async (signal) =>{
     // console.log('dans finally ...');
   }
 };
+
+
+//fonction externe isolée, n'est pas déclenchée par les fonction précédentes
+export const getUsersFromApi = async () => {
+
+  let controllerGu = new AbortController(); //objet utilisé pour stopper les fetch
+  let signalGu = controllerGu.signal; // propriété pour insérer dans le fetch
+  let fetchOk = false; // indicateur pour fetch terminé?
+  // time out de 15 secondes sur le fetch
+  setTimeout(() => {fetchOk ? null:controllerGu.abort();}, 15000);
+  tableauUsers = [];
+  try {
+  //  const response = await fetch('https://reactnative.dev/movies.json');
+    const response = await fetch(adresseServeur + 'api/utilisateurs?page=1', signalGu);
+    const json = await response.json();
+    console.log('dans getUsersFromApi');
+    console.log(json);
+    tableauUsers = json["hydra:member"];
+    console.log(tableauUsers);
+ } catch (error) {
+   console.log("erreur fonction getUsersFromApi");
+   console.error(error);
+ } finally {
+   fetchOk = true;
+   return tableauUsers;
+  //  setLoading(false);
+ }
+}

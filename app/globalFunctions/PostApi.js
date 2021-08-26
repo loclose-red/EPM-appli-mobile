@@ -7,12 +7,12 @@ const bodyTest = {
     "mesObjJson": {"recoucou":"recoucou"}
   };
 
-//'http://192.168.43.79:8000/api/mesures'
+const urlTest = "http://192.168.43.79:8000/api/mesures"
 
 
 export const postMesure = async (url, body) => {
     try {
-        const response = await fetch('http://192.168.43.79:8000/api/mesures', {
+        const response = await fetch(urlTest, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
