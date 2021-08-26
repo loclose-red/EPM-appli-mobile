@@ -9,6 +9,9 @@ import React, { useState, useEffect } from 'react';
 //import composants internes
 import { TextCustom } from '../composants/TextCustom';
 
+//import de fonctions globales
+import { GetAndSaveAll, getUsersFromApi } from '../globalFunctions/GetFromApi';
+
 
 
 export default Configuration = ({route, navigation}) => {
@@ -73,7 +76,7 @@ export default Configuration = ({route, navigation}) => {
               activeOpacity={0.5}
               underlayColor="#DDDDDD"
               onPress={() => {
-              // navigation.navigate('Detail', {uneRecette : item});
+                GetAndSaveAll();
               // navigation.navigate('UnEquipement');
               console.log("sync");
               }

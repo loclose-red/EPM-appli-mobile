@@ -75,19 +75,23 @@ export default Login = ({route, navigation}) => {
     const verifLogName = () => {
 
         console.log("dans verifLogName");
+        console.log(localUser);
         //récupération de l'id du site correspondant au User (voir structure Json User)
-        let cheminSite = localUser[0].site[0];
-        let idSite = cheminSite.replace("/api/sites/","");
+        let cheminSite = "";
+        console.log("cheminsite: " + cheminSite);
+        let idSite = "";
+        if(localUser[0].site.length > 0){
+            cheminSite = localUser[0].site[0];
+            idSite = cheminSite.replace("/api/sites/","");
+        };        
         console.log(idSite);
-        //
-        getUsersFromApi()
-        // console.log(usersFromServeur);
+
         let userFind = false;
         usersFromServeur.forEach(userFromServer => {
             if(userFromServer.logname == logName){
                 userFind = true;
                 // console.log(userFromServer);
-                setLocalUser(userFromServer);
+                setLocalUser([userFromServer]);
             }
         });
         userFind ? console.log("yes") : console.log("no");
@@ -167,17 +171,10 @@ export default Login = ({route, navigation}) => {
                     // color="#841584"
                     color="green"
                     />
-                <Button style={styles.btn} title="get from API" color="blue"
-                    onPress={() => {
-                        console.log("click get from API");
-                        GetAndSaveAll();
-                        
-                    }}
-                />
                 <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
                         console.log("click sur test");
-                        console.log(usersFromServeur);
+                        // console.log(usersFromServeur);
                         // postMesure();
                         // loadSite();
                         // loadAdresseServeur();
