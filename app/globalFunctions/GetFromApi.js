@@ -85,14 +85,14 @@ function checkFetch (controller) {
 
 }
 
-export function getAllFromApiByIdSite(idSite) {
-  console.log("dans fonction globale");
-  setTimeout(() => console.log('test fonction time out ') , 10000);
-  getSiteByIdFromApi(idSite);
-}
-export function stopFetch (){
-  controller.abort();
-}
+// export function getAllFromApiByIdSite(idSite) {
+//   console.log("dans fonction globale");
+//   setTimeout(() => console.log('test fonction time out ') , 10000);
+//   getSiteByIdFromApi(idSite);
+// }
+// export function stopFetch (){
+//   controller.abort();
+// }
 
 const getSiteAndEquipementsByIdSiteFromApi = async (idSite,signal) => {
   //création d'une référence du tableau "site" pour utilisation dans le "try..."

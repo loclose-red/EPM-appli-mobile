@@ -22,7 +22,7 @@ import * as listeEquimements from '../src/json/equipements.json';
 export default Equipements = ({route, navigation}) => {
   // console.log(listeEquimements.default['hydra:member']);
   // console.log("mes images: " + Images);
-  const [lesEquipements, setLesEquipements] = useState([{}]);
+  const [lesEquipements, setLesEquipements] = useState([{"id":1}]);//on affecte un id pour éviter un message d'erreur au premier lancement de l'appli pour la flat list
   const [leSite, setLeSite] = useState([{}]);
   const [nomDuSite, setNomDuSite] = useState("Pas de nom!");
 
@@ -68,7 +68,8 @@ const loadEquipements = async () => {
   try {
       const jsonValue = await AsyncStorage.getItem("@equipements");
       let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
-      console.log("dans loadEquipements:" + retour);
+      console.log("dans loadEquipements:");
+      console.log(retour);
       setLesEquipements(retour);
       // console.log("dans loadEquipements:" + retour[0].equ_marque);
   } catch(e) {
@@ -77,16 +78,6 @@ const loadEquipements = async () => {
   }
 };
 
-
-  // const lesEquipements = listeEquimements.default['hydra:member'];
-  let copieEquipements = [...lesEquipements];
-  // console.log(lesEquipements);
-  //filtre pour récupérer uniquement les équipements de Rennes (site id = 1)
-  let lesEquipementsRennes = copieEquipements.filter(equipement => equipement.site == "/api/sites/1");
-  console.log(lesEquipementsRennes);
-  
-  
-  
     const renderItem = ({ item }) => (
       <Equipement 
         item={item}
@@ -115,7 +106,7 @@ const loadEquipements = async () => {
       
       <SafeAreaView style={styles.container}>
         <FlatList
-          data={lesEquipementsRennes}
+          data={lesEquipements}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
