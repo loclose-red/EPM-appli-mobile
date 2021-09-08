@@ -70,6 +70,24 @@ export default Configuration = ({route, navigation}) => {
             }}
             />
         </View>
+        {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
+          <TouchableHighlight
+            style={styles.btnDownload}
+            activeOpacity={0.5}
+            underlayColor="#DDDDDD"
+            onPress={() => {
+              console.log("Upload");
+            }
+            }>
+            <View style={styles.blocBtn}>
+              <View style={styles.blocBtnText}>
+                <Text >Upload vers serveur des données</Text>
+                <Text >des capteurs (mesures).</Text>
+              </View>
+              <FontAwesome5 style={styles.blocBtnIcone} name={'upload'} solid size={30} />
+            </View>
+          </TouchableHighlight>
+        ) : null}
           {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
             <TouchableHighlight 
               style={styles.btnDownload}
@@ -86,7 +104,7 @@ export default Configuration = ({route, navigation}) => {
                   <Text >Synchronisation avec le seveur</Text>
                   <Text >mise à jour des données.</Text>
                 </View>
-                <FontAwesome5 style={styles.blocBtnIcone} name={'sync'} solid size={50} />
+                <FontAwesome5 style={styles.blocBtnIcone} name={'sync'} solid size={30} />
               </View>
             </TouchableHighlight>
           ) :null}
@@ -107,7 +125,7 @@ export default Configuration = ({route, navigation}) => {
                   <Text >Suppression du compte et</Text>
                   <Text >initialisation de l'application.</Text>
                 </View>
-                <FontAwesome5 style={styles.blocBtnIcone} name={'trash-alt'} solid size={50} />
+                <FontAwesome5 style={styles.blocBtnIcone} name={'trash-alt'} solid size={30} />
               </View>
             </TouchableHighlight>
           ) :null}
@@ -137,12 +155,12 @@ const styles = StyleSheet.create({
 },
 logo: {
     // hide: true,
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     // backgroundColor : 'yellow'
 },
 blocTextHeader: {
-    marginTop: 5,
+    // marginTop: 5,
     marginLeft: 40,
 },
 
@@ -160,6 +178,7 @@ blocAdresse: {
 },
 titreAdresse: {
   textDecorationLine: "underline",
+  fontSize: 10,
 },
 blocBtn: {
   flexDirection: "row",

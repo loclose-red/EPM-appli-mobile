@@ -67,13 +67,15 @@ export default UnEquipement = ({route, navigation}) => {
             // source={require('../src/images/machine-production-1.jpg')}
             source= {images[route.params.equipement.equ_photo_1]}
         />
-      <Button
+      <View style={styles.btnDetect}>
+        <Button
         // onPress={() => console.log(ptMesure21["pt_mes_nom"])}
         onPress={() => console.log(tableauDesPoints)}
         title="Détection des points"
-        color="#841584"
+        color="green"
         accessibilityLabel="Learn more about this purple button"
-      />
+        />
+      </View>  
       <Text style={styles.texteListe}>Liste des points</Text>
 
       <SafeAreaView style={styles.container}>
@@ -112,6 +114,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
 
   },
+  btnDetect:{
+    marginLeft: 20,
+    marginRight: 20,
+    // paddingLeft: 10,
+  },
+
   texteListe: {
     textAlign: "center",
     marginTop: 10,
