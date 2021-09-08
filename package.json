@@ -18,7 +18,8 @@
     "react-native-elements": "github:react-native-elements/react-native-elements#dist",
     "react-native-safe-area-context": "^3.3.0",
     "react-native-screens": "^3.5.0",
-    "react-native-vector-icons": "^8.1.0"
+    "react-native-vector-icons": "^8.1.0",
+    "rn-fetch-blob": "github:joltup/rn-fetch-blob#master"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
