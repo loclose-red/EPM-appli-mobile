@@ -1,3 +1,9 @@
+//ce patch permet de fixer un message d'erreur
+//'Require cycle'-warning of rn-fetch-blob library
+//source: https://github.com/joltup/rn-fetch-blob/issues/183
+//https://gist.github.com/storkyle/d2f09ef376b3843915345150b0740977#file-rn-fetch-blob-0-12-0-patch
+
+
 diff --git a/node_modules/rn-fetch-blob/polyfill/Blob.js b/node_modules/rn-fetch-blob/polyfill/Blob.js
 old mode 100644
 new mode 100755
