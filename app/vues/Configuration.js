@@ -11,6 +11,8 @@ import { TextCustom } from '../composants/TextCustom';
 
 //import de fonctions globales
 import { GetAndSaveAll, getUsersFromApi } from '../globalFunctions/GetFromApi';
+import {saveAdresseServeur} from '../globalFunctions/SaveLocal';
+import Login from './Login';
 
 
 
@@ -20,17 +22,10 @@ export default Configuration = ({route, navigation}) => {
   //variable utilisée pour afficher ou effacer des composant lors de la saisie de l'adresse serveur
   const [showComponent, setShowComponent] = React.useState(true);
 
-  const saveAdresseServeur = async (adresseServeur)=>{
-    try{
-        const jsonValue = JSON.stringify(adresseServeur)
-        await AsyncStorage.setItem("@adresseServeur", jsonValue)
-        console.log('dans saveAdresseServeur');
-    }catch(e){
-        console.log("erreur fct 'saveAdresseServeur': ",e);
-    }
-  }
+
   console.log("pour test dans config");
   console.log(route.params.adresseServeur);
+  console.log(route.params.idSite);
   useEffect(() => {
     if ((route.params.adresseServeur) != ""){
       setAdresseServeur(route.params.adresseServeur);
@@ -95,7 +90,12 @@ export default Configuration = ({route, navigation}) => {
               underlayColor="#DDDDDD"
               onPress={() => {
                 console.log("sync");
-                GetAndSaveAll(route.params.idSite);
+                if((route.params.idSite > 0) && (route.params.idSite != "") && (route.params.idSite != null)){
+                  GetAndSaveAll(route.params.idSite);
+                }else{
+                  alert("Pas de site à télécharger! Vérifier le Login.");
+                }
+                
                 console.log(route.params.idSite);
               }
               }>

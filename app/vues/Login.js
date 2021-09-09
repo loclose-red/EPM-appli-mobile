@@ -19,6 +19,7 @@ import { GetAndSaveAll, getUsersFromApi } from '../globalFunctions/GetFromApi';
 import {loadSite} from '../globalFunctions/LoadLocal';
 import {postMesure} from '../globalFunctions/PostApi';
 import {downloadPhotos} from '../globalFunctions/DownlaodPhotos';
+import {saveUserLocal} from '../globalFunctions/SaveLocal';
 
 
 
@@ -60,10 +61,12 @@ export default Login = ({route, navigation}) => {
         try {
         const jsonValue = await AsyncStorage.getItem("@adresseServeur");
         let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
-        console.log("dans loadAdresseServeur vue login:"); console.log(retour);
+        console.log("dans loadAdresseServeur vue login:"); 
+        retour? console.log(retour[0]) : console.log('Pas d\'adresse serveur en mémoire');;
         if (retour != null){
             setAdresseServeur(retour[0]);
         }else{
+            alert('Il n\'y a pas d\adresse serveur de configurée. Veuillez modifier la configuration!');
             setAdresseServeur("");
         }
         } catch (e) {
@@ -72,45 +75,72 @@ export default Login = ({route, navigation}) => {
         }
     };
 
-    const verifLogName = () => {
+    const loadUserLocal = async () => {
+        try {
+        const jsonValue = await AsyncStorage.getItem("@localUser");
+        let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+        console.log("dans loadUserLocal vue login:"); 
+        retour? console.log(retour[0]) : console.log('Pas de user enregistré en local');;
+        //si on trouve un user enregistré 
+        //alors, on affecte l'id site du hook pour utilisation dans la cession
+        if (retour != null){
+            alert("Utilisateur trouvé: " + retour[0].logname + ". Clique sur valider sans saisir un logname");
+            setLocalUser(retour[0]);
+            let user = retour[0];
+            
+            if(user.site.length > 0){
+                cheminSite = user.site[0];
+                idSite = cheminSite.replace("/api/sites/","");
+                setIdLocalSite(idSite);
+            };
+        }else{
+            // alert('Il n y a pas de user d enregisté!');
+        }
+        } catch (e) {
+        // traitement des erreurs
+        console.log("erreur fct 'loadUserLocal' dans vue login: ", e);
+        }
+    };
 
-        //récupération de l'id du site correspondant au User (voir structure Json User)
-        //si le log existe on le charge sinon on prend le User par défaut
+    async function verifLogName () {
+        // on récupère tous les users avec l'api
+        //ceci est uniquement pour la phase dev
+        // il faudra trouver une autre façon
+        const tableauUsers = await getUsersFromApi();
+        console.log("dans verifLogName() vue login");
+        console.log(tableauUsers);
+        setUsersFromServer(tableauUsers);
+
+
+
+        //test si le logname saisi existe dans la liste des users
+        //récupération de l'id du site
         //Ce fonctionnement sera à changer lors de la véritable autentification
-        let idSite = "";
-        let unUserTemp = [...localUser];            
-        let userFind = false;
-        usersFromServeur.forEach(userFromServer => {
-            if(userFromServer.logname == logName){
-                userFind = true;
-                unUserTemp = [userFromServer];
-                setLocalUser([userFromServer]);
+        let idSite;
+        tableauUsers.forEach(user => {
+            if (user.logname == logName){
+                console.log('login ok');
+                console.log(user);
+                saveUserLocal([user]);
+                //on récupère l'id site du user
+                if(user.site.lengh > 0){
+                    cheminSite = user.site[0];
+                    idSite = cheminSite.replace("/api/sites/","");
+                    setIdLocalSite(idSite);
+                };
             }
-        });
-        if(unUserTemp[0].site.length > 0){
-            cheminSite = unUserTemp[0].site[0];
-            idSite = cheminSite.replace("/api/sites/","");
-            setIdLocalSite(idSite)
-        };
-        userFind ? console.log("yes") : console.log("no"); //pour la phase dev
-        navigation.navigate('Equipements', {adresseServeur: adresseServeur,idSite : idSite});
+        })
+
+
+        
+        navigation.navigate('Equipements', {adresseServeur: adresseServeur, idSite : idLocalSite});
 
     };
     
     useEffect(() => {    
-        // on récupère tous les users avec l'api
-        //ceci est uniquement pour la phase dev
-        // il faudra trouver une autre façon
-        async function uneFonction (){
-            // let tableauUsers = [];
-            const tableauUsers = await getUsersFromApi();
-            console.log("dans use effect vue login");
-            console.log(tableauUsers);
-            setUsersFromServer(tableauUsers);
-        }
-        uneFonction ();
-
+        
         loadAdresseServeur();
+        loadUserLocal();
 
         // Demande de Permission d'ecriture en local pour la sauvegarde des images
         const requestPermissionAsync = async () => {

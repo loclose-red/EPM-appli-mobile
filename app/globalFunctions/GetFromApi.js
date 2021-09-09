@@ -205,9 +205,10 @@ const getGrandeursFromApi = async (signal) =>{
 
 //fonction externe isolée, n'est pas déclenchée par les fonction précédentes
 export const getUsersFromApi = async () => {
-  console.log('dans get user');
-  console.log(adresseServeur);
-  console.log(adresseServeur + '/api/utilisateurs?page=1');
+  
+  // console.log(adresseServeur);
+  // console.log(adresseServeur + '/api/utilisateurs?page=1');
+
   let controllerGu = new AbortController(); //objet utilisé pour stopper les fetch
   let signalGu = controllerGu.signal; // propriété pour insérer dans le fetch
   let fetchOk = false; // indicateur pour fetch terminé?
@@ -219,9 +220,9 @@ export const getUsersFromApi = async () => {
     const response = await fetch(adresseServeur + '/api/utilisateurs?page=1', signalGu);
     const json = await response.json();
     console.log('dans getUsersFromApi');
-    console.log(json);
+    // console.log(json);
     tableauUsers = json["hydra:member"];
-    console.log(tableauUsers);
+    // console.log(tableauUsers);
  } catch (error) {
    console.log("erreur fonction getUsersFromApi");
    console.error(error);

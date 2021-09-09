@@ -8,8 +8,8 @@ export const saveSite = async (site) =>{
     }catch(e){
         console.log("erreur fct 'saveSite': ",e);
     }
-  };
-  
+};
+
 export const saveEquipements = async (equipements) =>{
     try{
         const jsonValue = JSON.stringify(equipements)
@@ -36,7 +36,7 @@ export  const saveCapteurs = async (capteurs) =>{
     }catch(e){
         console.log("erreur fct 'saveCapteurs': ",e);
     }
-  };
+};
 export  const saveGrandeurs = async (grandeurs) =>{
     try{
         const jsonValue = JSON.stringify(grandeurs)
@@ -45,7 +45,27 @@ export  const saveGrandeurs = async (grandeurs) =>{
     }catch(e){
         console.log("erreur fct 'saveGrandeurs': ",e);
     }
-  };
+};
+
+export const saveAdresseServeur = async (adresseServeur = [""])=>{
+    try{
+        const jsonValue = JSON.stringify(adresseServeur)
+        await AsyncStorage.setItem("@adresseServeur", jsonValue)
+        console.log('dans saveAdresseServeur');
+    }catch(e){
+        console.log("erreur fct 'saveAdresseServeur': ",e);
+    }
+};
+
+export const saveUserLocal = async (localUser = [{}])=>{
+    try{
+        const jsonValue = JSON.stringify(localUser)
+        await AsyncStorage.setItem("@localUser", jsonValue)
+        console.log('dans saveUserLocal');
+    }catch(e){
+        console.log("erreur fct 'saveUserLocal': ",e);
+    }
+};
 
 //   saveGrandeurs(grandeurs)
 
