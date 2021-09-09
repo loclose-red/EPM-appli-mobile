@@ -194,7 +194,8 @@ export default Login = ({route, navigation}) => {
                         // loadAdresseServeur();
                     }}
                 />
-                <Image source={{ uri: 'file:///storage/emulated/0/Pictures/tiny_logo.png', width:100,height:100 }} />
+
+
             <ActivityIndicator size="large" color="#0000ff" />
 
             </View>

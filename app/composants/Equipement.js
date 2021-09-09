@@ -17,6 +17,10 @@ export const Equipement = ({item, navigation}) => {
     
     return (
         <View style={styles.container}>
+
+            {/* exemple pour afficher une image de la gallerie */}
+            {/* <Image source={{ uri: 'file:///storage/emulated/0/Pictures/tiny_logo.png', width:100,height:100 }} /> */}
+            
             <Image
                     style={styles.imgEqui}
                     source={images[item.equ_photo_1]}
