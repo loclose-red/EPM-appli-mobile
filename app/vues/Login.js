@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import React from 'react';
-import { View, Text, Image, Button, TextInput, ActivityIndicator, StyleSheet } from "react-native";
+import { View, Text, Image, Button, TextInput, ActivityIndicator, PermissionsAndroid, StyleSheet } from "react-native";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -53,9 +53,6 @@ export default Login = ({route, navigation}) => {
     //variable utilisée pour afficher ou effacer des composant lors de la saisie du log-pass
     const [showComponent, setShowComponent] = useState(true);
 
-    useEffect(() => {
-        loadAdresseServeur();
-    }, []);
 
     const loadAdresseServeur = async () => {
         try {
@@ -109,7 +106,21 @@ export default Login = ({route, navigation}) => {
             console.log(tableauUsers);
             setUsersFromServer(tableauUsers);
         }
-        uneFonction ();   
+        uneFonction ();
+
+        loadAdresseServeur();
+
+        // Demande de Permission d'ecriture en local pour la sauvegarde des images
+        const requestPermissionAsync = async () => {
+            try {
+                await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
+                );
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        requestPermissionAsync();  
     }, []);
 
     return(
