@@ -14,10 +14,12 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 //import composants internes
 import { TextCustom } from '../composants/TextCustom';
 
-//import de fonctions globales
+//import de fonctions globales internes
 import { GetAndSaveAll, getUsersFromApi } from '../globalFunctions/GetFromApi';
 import {loadSite} from '../globalFunctions/LoadLocal';
 import {postMesure} from '../globalFunctions/PostApi';
+import {downloadPhotos} from '../globalFunctions/DownlaodPhotos';
+
 
 
 // globaleAdresseServeur
@@ -185,6 +187,7 @@ export default Login = ({route, navigation}) => {
                 <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
                         console.log("click sur test");
+                        downloadPhotos();
                         // console.log(usersFromServeur);
                         // postMesure();
                         // loadSite();
