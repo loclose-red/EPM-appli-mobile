@@ -20,8 +20,11 @@ export default Configuration = ({route, navigation}) => {
   const [adresseServeur, setAdresseServeur] = React.useState("Adresse serveur");
 
   //variable utilisée pour afficher ou effacer des composant lors de la saisie de l'adresse serveur
-  const [showComponent, setShowComponent] = React.useState(true);
-
+  const [showLogo, setShowLogo] = React.useState(true);
+  const [showBtnUpload, setShowBtnUpload] = React.useState(true);
+  const [showBtnSychro, setShowBtnSychro] = React.useState(true);
+  const [showBtnDelete, setShowBtnDelete] = React.useState(true);
+  //showBtnUpload showBtnSychro showBtnDelete
 
   console.log("pour test dans config");
   console.log(route.params.adresseServeur);
@@ -30,12 +33,21 @@ export default Configuration = ({route, navigation}) => {
     if ((route.params.adresseServeur) != ""){
       setAdresseServeur(route.params.adresseServeur);
     }
+    //si cette vue est appelée depuis la vue login,
+    // on affiche que la saisie adresse serveur, et le reset de l'appli
+    if (route.params.vueParent == "login") {
+      setShowBtnUpload(false);
+      setShowBtnSychro(false);
+  }
+
   }, []);
   
-
+  
+  console.log(route.params.vueParent);
+  // console.log(route.params);
   return (
     <View style={styles.body}>
-      {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
+      {showLogo ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
         <View style={styles.header}>
           <Image
             style={styles.logo}
@@ -57,15 +69,20 @@ export default Configuration = ({route, navigation}) => {
             value={adresseServeur}
             placeholder = {adresseServeur}
             onFocus={() => { //quand on prend le focus, on affiche uniquement les champs de saisie
-              setShowComponent(false);
+              setShowLogo(false);
+              setShowBtnUpload(false);
+              setShowBtnSychro(false);
+              setShowBtnDelete(false);
+
             }}
             onSubmitEditing={() => { //quand on perd le focus, on affiche toute la page
-              setShowComponent(true);
+              setShowLogo(true);
               saveAdresseServeur([adresseServeur]);
             }}
             />
         </View>
-        {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
+        
+        {showBtnUpload ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
           <TouchableHighlight
             style={styles.btnDownload}
             activeOpacity={0.5}
@@ -83,7 +100,7 @@ export default Configuration = ({route, navigation}) => {
             </View>
           </TouchableHighlight>
         ) : null}
-          {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
+          {showBtnSychro ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
             <TouchableHighlight 
               style={styles.btnDownload}
               activeOpacity={0.5}
@@ -109,7 +126,7 @@ export default Configuration = ({route, navigation}) => {
             </TouchableHighlight>
           ) :null}
 
-          {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
+          {showBtnDelete ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
             <TouchableHighlight 
               style={styles.btnDownload}
               activeOpacity={0.5}
@@ -130,7 +147,7 @@ export default Configuration = ({route, navigation}) => {
             </TouchableHighlight>
           ) :null}
       </View>
-        {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
+        {showLogo ? ( // technique pour effacer des composants. Ici lors de la saisie de l'adresse serveur, on efface le header et le footer
         <View style={styles.footer}>
           <Image
             style={styles.banniere}

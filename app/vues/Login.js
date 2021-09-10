@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 // import React from 'react';
-import { View, Text, Image, Button, TextInput, ActivityIndicator, PermissionsAndroid, StyleSheet } from "react-native";
+import { View, Text, Image, Button, TextInput, ActivityIndicator, TouchableHighlight, PermissionsAndroid, StyleSheet } from "react-native";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import localStyles from '../styles/localStyles';
 //import Icon from 'react-native-vector-icons/FontAwesome';
@@ -56,7 +58,23 @@ export default Login = ({route, navigation}) => {
     //variable utilisée pour afficher ou effacer des composant lors de la saisie du log-pass
     const [showComponent, setShowComponent] = useState(true);
 
-
+    //Configutation de la barre de navigation
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => <TouchableHighlight
+                                    style={styles.touchable}
+                                    activeOpacity={0.9}
+                                    underlayColor="#DDDDDD"
+                                    onPress={() => {
+                                    navigation.navigate('Configuration', {adresseServeur: adresseServeur, vueParent: "login"});
+                                        console.log("on press bar nav");
+                                    }
+                                    }>
+                                    {/* <Icon name="plus-square" size={35} color="#000" /> */}
+                                    <FontAwesome5 name={'cogs'} solid size={30} />
+                                </TouchableHighlight>,
+        });
+    }, [navigation]);
     const loadAdresseServeur = async () => {
         try {
         const jsonValue = await AsyncStorage.getItem("@adresseServeur");
@@ -106,32 +124,30 @@ export default Login = ({route, navigation}) => {
         // on récupère tous les users avec l'api
         //ceci est uniquement pour la phase dev
         // il faudra trouver une autre façon
-        const tableauUsers = await getUsersFromApi();
-        console.log("dans verifLogName() vue login");
-        console.log(tableauUsers);
-        setUsersFromServer(tableauUsers);
+        if (logName != ""){
+            const tableauUsers = await getUsersFromApi();
+            console.log("dans verifLogName() vue login");
+            console.log(tableauUsers);
+            setUsersFromServer(tableauUsers);
 
-
-
-        //test si le logname saisi existe dans la liste des users
-        //récupération de l'id du site
-        //Ce fonctionnement sera à changer lors de la véritable autentification
-        let idSite;
-        tableauUsers.forEach(user => {
-            if (user.logname == logName){
-                console.log('login ok');
-                console.log(user);
-                saveUserLocal([user]);
-                //on récupère l'id site du user
-                if(user.site.lengh > 0){
-                    cheminSite = user.site[0];
-                    idSite = cheminSite.replace("/api/sites/","");
-                    setIdLocalSite(idSite);
-                };
-            }
-        })
-
-
+            //test si le logname saisi existe dans la liste des users
+            //récupération de l'id du site
+            //Ce fonctionnement sera à changer lors de la véritable autentification
+            let idSite;
+            tableauUsers.forEach(user => {
+                if (user.logname == logName){
+                    console.log('login ok');
+                    console.log(user);
+                    saveUserLocal([user]);
+                    //on récupère l'id site du user
+                    if(user.site.lengh > 0){
+                        cheminSite = user.site[0];
+                        idSite = cheminSite.replace("/api/sites/","");
+                        setIdLocalSite(idSite);
+                    };
+                }
+            })
+        }
         
         navigation.navigate('Equipements', {adresseServeur: adresseServeur, idSite : idLocalSite});
 
