@@ -7,8 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //import composants internes
 import { PtDeMes } from '../composants/PtDeMes';
-// cet import est pour le dev en attendant de gérer les photos en réel
-import { images } from '../globalFunctions/ImageRequire'; 
+
 
 
 
@@ -64,8 +63,7 @@ export default UnEquipement = ({route, navigation}) => {
       <Text style={styles.nomEquipement}>{route.params.equipement.equ_nom}</Text>
       <Image
             style={styles.imageEquipement}
-            // source={require('../src/images/machine-production-1.jpg')}
-            source= {images[route.params.equipement.equ_photo_1]}
+            source={{ uri: 'file:///storage/emulated/0/Pictures/' + route.params.equipement.equ_photo_1}}
         />
       <View style={styles.btnDetect}>
         <Button

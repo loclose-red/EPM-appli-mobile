@@ -23,7 +23,7 @@ export const Equipement = ({item, navigation}) => {
             
             <Image
                     style={styles.imgEqui}
-                    source={images[item.equ_photo_1]}
+                    source={{ uri: 'file:///storage/emulated/0/Pictures/' + item.equ_photo_1}}
             />
             <View style={styles.textDescript}>
                 <Text style={styles.textNom}>{item.equ_nom}</Text>
