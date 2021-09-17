@@ -233,7 +233,7 @@ export default Login = ({route, navigation}) => {
                 <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
                         console.log("click sur test");
-                        downloadPhotos();
+                        downloadPhotos("http://192.168.1.13:8000","machine-production-4-6140c2e9c9322750663675.jpg");
                         // console.log(usersFromServeur);
                         // postMesure();
                         // loadSite();
