@@ -3,10 +3,11 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 // adresse de test 'https://reactnative.dev/img/tiny_logo.png';
 
-export function downloadPhotos(adresseServer = "https://reactnative.dev/img", photos = ['tiny_logo.png']) {
+// export function downloadPhotos(adresseServer = "https://reactnative.dev/img", photos = 'tiny_logo.png') {
+export function downloadPhotos(adresseServer = "http://192.168.1.13:8000/uploads/photos", photo = 'machine-production-4-6140c2e9c9322750663675.jpg') {
+    
 
-
-    let adressDowload = adresseServer + '/' + photos[0];
+    let adressDowload = adresseServer + '/uploads/photos/' + photo;
     let dirs = RNFetchBlob.fs.dirs
         RNFetchBlob
             .config({
@@ -15,7 +16,7 @@ export function downloadPhotos(adresseServer = "https://reactnative.dev/img", ph
                     // Related to the Android only
                     useDownloadManager: true,
                     notification: true,
-                    path : dirs.PictureDir + '/' + photos[0],
+                    path : dirs.PictureDir + '/' + photo,
                     // path : dirs.DocumentDir + '/image.png',
                     description: 'Image',
                 },

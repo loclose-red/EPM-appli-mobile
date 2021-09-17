@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {saveSite, saveEquipements, savePointsMesures, saveCapteurs, saveGrandeurs} from '../globalFunctions/SaveLocal';
 import {loadSite, loadEquipements, loadPointsMesures, loadCapteurs} from '../globalFunctions/LoadLocal';
+import {downloadPhotos} from '../globalFunctions/DownlaodPhotos';
 
 
 const adresseServeur = "http://192.168.1.13:8000";
@@ -133,6 +134,10 @@ const getEquipementAndPtMesureByIdEquiFromApi = async (idEqui,signal) =>{
     const response = await fetch(adresseServeur + '/api/equipements/' + idEqui, {signal : signal});
     const json = await response.json();
     equipements_sc.push(json);
+    //on télécharge l'image de l'équipement
+    downloadPhotos(adresseServeur, json.equ_photo_1);
+    console.log('trace');
+    console.log(json.equ_photo_1);
     let lesPointsDeMesures = [];
     lesPointsDeMesures = json.ptMesures;
 
