@@ -5,7 +5,7 @@ import {loadSite, loadEquipements, loadPointsMesures, loadCapteurs} from '../glo
 import {downloadPhotos} from '../globalFunctions/DownlaodPhotos';
 
 
-const adresseServeur = "http://192.168.1.13:8000";
+// const adresseServeur = "http://192.168.1.13:8000";
 let site = [];
 let equipements = [];
 let pointsMesures = [];
@@ -26,7 +26,7 @@ let fetchGrandeursFinish = false;
 
 
 
-export function GetAndSaveAll(idSite,downloading, setDownloading) {
+export function GetAndSaveAll(idSite, adresseServeur, setDownloading) {
 
   setDownloading(true);
   let controller = new AbortController();
@@ -46,8 +46,8 @@ export function GetAndSaveAll(idSite,downloading, setDownloading) {
 
   
   
-  getSiteAndEquipementsByIdSiteFromApi(idSite,signal);
-  getGrandeursFromApi(signal);
+  getSiteAndEquipementsByIdSiteFromApi(idSite, adresseServeur, signal);
+  getGrandeursFromApi(signal, adresseServeur);
 
   //mise en place d'un timeOut de 15 secondes sur les fetch
   setTimeout(() => checkFetch (controller, setDownloading), 15000);
@@ -100,7 +100,7 @@ function checkFetch (controller, setDownloading) {
 //   controller.abort();
 // }
 
-const getSiteAndEquipementsByIdSiteFromApi = async (idSite,signal) => {
+const getSiteAndEquipementsByIdSiteFromApi = async (idSite, adresseServeur,signal) => {
   //création d'une référence du tableau "site" pour utilisation dans le "try..."
   let site_sc = site;
   try {
@@ -117,7 +117,7 @@ const getSiteAndEquipementsByIdSiteFromApi = async (idSite,signal) => {
     lesEquipements.forEach(equipement => {
       idEquipement = equipement.replace("/api/equipements/", "");
       console.log("dans for each id equipement: " + idEquipement);
-      getEquipementAndPtMesureByIdEquiFromApi(idEquipement,signal);
+      getEquipementAndPtMesureByIdEquiFromApi(idEquipement, adresseServeur,signal);
     });
   } catch (error) {
     console.log('Erreur dans fct: getSiteAndEquipementsByIdSiteFromApi()');
@@ -131,7 +131,7 @@ const getSiteAndEquipementsByIdSiteFromApi = async (idSite,signal) => {
 
 //cette fonction déclenche en cascade les autres fonctions
 //
-const getEquipementAndPtMesureByIdEquiFromApi = async (idEqui,signal) =>{
+const getEquipementAndPtMesureByIdEquiFromApi = async (idEqui, adresseServeur,signal) =>{
   let equipements_sc = equipements;
   try {
     const response = await fetch(adresseServeur + '/api/equipements/' + idEqui, {signal : signal});
@@ -149,7 +149,7 @@ const getEquipementAndPtMesureByIdEquiFromApi = async (idEqui,signal) =>{
     lesPointsDeMesures.forEach(unPtDeMes => {
       idPtDeMes = unPtDeMes.replace("/api/pt_mesures/", "");
       console.log("dans for each id pt de mesure: " + idPtDeMes);
-      getPtDeMesAndCapteurByIdPtdeMesFromApi(idPtDeMes, signal);
+      getPtDeMesAndCapteurByIdPtdeMesFromApi(idPtDeMes, adresseServeur, signal);
     });
   } catch (error) {
     console.error(error);
@@ -159,7 +159,7 @@ const getEquipementAndPtMesureByIdEquiFromApi = async (idEqui,signal) =>{
   }  
 };
 
-const getPtDeMesAndCapteurByIdPtdeMesFromApi = async (idPtMes,signal) =>{
+const getPtDeMesAndCapteurByIdPtdeMesFromApi = async (idPtMes, adresseServeur,signal) =>{
   let pointsMesures_sc = pointsMesures;
   try {
     const response = await fetch(adresseServeur + '/api/pt_mesures/' + idPtMes, {signal : signal});
@@ -171,7 +171,7 @@ const getPtDeMesAndCapteurByIdPtdeMesFromApi = async (idPtMes,signal) =>{
     // on récupère de l'api, le capteur lié au point de mesure 
     let idCapteur = leCapteur.replace("/api/capteurs/", "");
     console.log("l'id capteur: " + idCapteur);
-    getCapteurByIdFromApi(idCapteur,signal);
+    getCapteurByIdFromApi(idCapteur, adresseServeur,signal);
   } catch (error) {
     console.error(error);
   } finally {
@@ -181,7 +181,7 @@ const getPtDeMesAndCapteurByIdPtdeMesFromApi = async (idPtMes,signal) =>{
 };
 
 //fonction interne déclenchée par les fonctions précédentes
-const getCapteurByIdFromApi = async (idCapteur,signal, setDownloading) =>{
+const getCapteurByIdFromApi = async (idCapteur, adresseServeur,signal) =>{
   let capteurs_sc = capteurs;
   try {
     const response = await fetch(adresseServeur + '/api/capteurs/' + idCapteur, {signal : signal});
@@ -196,7 +196,7 @@ const getCapteurByIdFromApi = async (idCapteur,signal, setDownloading) =>{
 };
 
 //fonction interne
-const getGrandeursFromApi = async (signal) =>{
+const getGrandeursFromApi = async (adresseServeur, signal) =>{
   let grandeurs_sc = grandeurs;
   try {
     const response = await fetch(adresseServeur + '/api/grandeurs', {signal : signal});
@@ -212,7 +212,7 @@ const getGrandeursFromApi = async (signal) =>{
 
 
 //fonction externe isolée, n'est pas déclenchée par les fonction précédentes
-export const getUsersFromApi = async () => {
+export const getUsersFromApi = async (adresseServeur) => {
   
   // console.log(adresseServeur);
   // console.log(adresseServeur + '/api/utilisateurs?page=1');

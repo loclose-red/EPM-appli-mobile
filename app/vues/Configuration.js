@@ -12,6 +12,7 @@ import { TextCustom } from '../composants/TextCustom';
 //import de fonctions globales
 import { GetAndSaveAll, getUsersFromApi } from '../globalFunctions/GetFromApi';
 import {saveAdresseServeur} from '../globalFunctions/SaveLocal';
+import {loadAdresseServeur} from '../globalFunctions/LoadLocal';
 import Login from './Login';
 
 
@@ -31,14 +32,12 @@ export default Configuration = ({route, navigation}) => {
   console.log(route.params.adresseServeur);
   console.log(route.params.idSite);
   useEffect(() => {
-    if ((route.params.adresseServeur) != ""){
-      setAdresseServeur(route.params.adresseServeur);
-    }
     //si cette vue est appelée depuis la vue login,
     // on affiche que la saisie adresse serveur, et le reset de l'appli
     if (route.params.vueParent == "login") {
       setShowBtnUpload(false);
       setShowBtnSychro(false);
+      loadAdresseServeur(setAdresseServeur);
   }
 
   }, []);
@@ -111,7 +110,7 @@ export default Configuration = ({route, navigation}) => {
               onPress={() => {
                 console.log("sync");
                 if((route.params.idSite > 0) && (route.params.idSite != "") && (route.params.idSite != null)){
-                  GetAndSaveAll(route.params.idSite,downloading, setDownloading);
+                  GetAndSaveAll(route.params.idSite, adresseServeur, setDownloading);
                 }else{
                   alert("Pas de site à télécharger! Vérifier le Login.");
                 }

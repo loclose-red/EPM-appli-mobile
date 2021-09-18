@@ -22,6 +22,7 @@ import {loadSite} from '../globalFunctions/LoadLocal';
 import {postMesure} from '../globalFunctions/PostApi';
 import {downloadPhotos} from '../globalFunctions/DownlaodPhotos';
 import {saveUserLocal} from '../globalFunctions/SaveLocal';
+import {loadAdresseServeur} from '../globalFunctions/LoadLocal';
 
 
 
@@ -66,8 +67,10 @@ export default Login = ({route, navigation}) => {
                                     activeOpacity={0.9}
                                     underlayColor="#DDDDDD"
                                     onPress={() => {
-                                    navigation.navigate('Configuration', {adresseServeur: adresseServeur, vueParent: "login"});
+                                    navigation.navigate('Configuration', {vueParent: "login"});
                                         console.log("on press bar nav");
+                                        console.log(adresseServeur);
+                                        test();
                                     }
                                     }>
                                     {/* <Icon name="plus-square" size={35} color="#000" /> */}
@@ -75,23 +78,14 @@ export default Login = ({route, navigation}) => {
                                 </TouchableHighlight>,
         });
     }, [navigation]);
-    const loadAdresseServeur = async () => {
-        try {
-        const jsonValue = await AsyncStorage.getItem("@adresseServeur");
-        let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
-        console.log("dans loadAdresseServeur vue login:"); 
-        retour? console.log(retour[0]) : console.log('Pas d\'adresse serveur en mémoire');;
-        if (retour != null){
-            setAdresseServeur(retour[0]);
-        }else{
-            alert('Il n\'y a pas d\adresse serveur de configurée. Veuillez modifier la configuration!');
-            setAdresseServeur("");
-        }
-        } catch (e) {
-        // traitement des erreurs
-        console.log("erreur fct 'loadAdresseServeur' dans vue login: ", e);
-        }
+
+    const test = () => {
+        let coucou = adresseServeur;
+        console.log('dans test');
+        console.log(coucou);
     };
+
+    
 
     const loadUserLocal = async () => {
         try {
@@ -125,7 +119,7 @@ export default Login = ({route, navigation}) => {
         //ceci est uniquement pour la phase dev
         // il faudra trouver une autre façon
         if (logName != ""){
-            const tableauUsers = await getUsersFromApi();
+            const tableauUsers = await getUsersFromApi(adresseServeur);
             console.log("dans verifLogName() vue login");
             console.log(tableauUsers);
             setUsersFromServer(tableauUsers);
@@ -155,7 +149,7 @@ export default Login = ({route, navigation}) => {
     
     useEffect(() => {    
         
-        loadAdresseServeur();
+        loadAdresseServeur(setAdresseServeur);
         loadUserLocal();
 
         // Demande de Permission d'ecriture en local pour la sauvegarde des images
@@ -234,10 +228,7 @@ export default Login = ({route, navigation}) => {
                     onPress={() => {
                         console.log("click sur test");
                         downloadPhotos("http://192.168.1.13:8000","machine-production-4-6140c2e9c9322750663675.jpg");
-                        // console.log(usersFromServeur);
-                        // postMesure();
-                        // loadSite();
-                        // loadAdresseServeur();
+                        
                     }}
                 />
 
