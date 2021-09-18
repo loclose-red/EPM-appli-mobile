@@ -76,6 +76,7 @@ export default Login = ({route, navigation}) => {
                                     {/* <Icon name="plus-square" size={35} color="#000" /> */}
                                     <FontAwesome5 name={'cogs'} solid size={30} />
                                 </TouchableHighlight>,
+            headerTitle: "Login",
         });
     }, [navigation]);
 

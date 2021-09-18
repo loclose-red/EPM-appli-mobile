@@ -17,16 +17,12 @@ export default UnPointDeMesure = ({route, navigation}) => {
   const [laGrandeur, setLaGrandeur] = useState([{}]);
 
 
-  //récupération de la grandeur du point dans lesGrandeurs
-  
-  // const tableauGrandeurs = grandeurs["hydra:member"];
-  // tableauGrandeurs.forEach(element => {
-  //   if(ptMesure21.grandeur == element["@id"]){
-  //     setLaGrandeur(element.gra_unite);
-  //   }
-  // });
-
-  // console.log(route.params.unPtDeMes);
+  //Configutation de la barre de navigation
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+        headerTitle: "Un point de mesure",
+    });
+  }, [navigation]);
 
   useEffect(() => {
     loadCapteurs();

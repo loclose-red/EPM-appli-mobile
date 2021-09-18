@@ -26,7 +26,13 @@ export default Configuration = ({route, navigation}) => {
   const [showBtnSychro, setShowBtnSychro] = React.useState(true);
   const [showBtnDelete, setShowBtnDelete] = React.useState(true);
   const [downloading, setDownloading] = React.useState(false);
-  //showBtnUpload showBtnSychro showBtnDelete
+  
+  //Configutation de la barre de navigation
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+        headerTitle: "Configuration",
+    });
+}, [navigation]);
 
   console.log("pour test dans config");
   console.log(route.params.adresseServeur);

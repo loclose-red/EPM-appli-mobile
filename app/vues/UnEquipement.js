@@ -14,6 +14,13 @@ import { PtDeMes } from '../composants/PtDeMes';
 export default UnEquipement = ({route, navigation}) => {
   const [tableauDesPoints, setTableauDesPoints] = useState([{"id":1}]);//on affecte un id pour éviter un message d'erreur au premier lancement de l'appli pour la flat list
 
+  //Configutation de la barre de navigation
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+        headerTitle: "Un équipement",
+    });
+  }, [navigation]);
+
   //fichier json local des points de mesures (cette etape est pour le dev avant la récupération via api)
   const ptMesure21 = require('../src/json/ptMesure21.json');
   const ptMesure22 = require('../src/json/ptMesure22.json');
