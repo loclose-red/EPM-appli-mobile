@@ -11,7 +11,7 @@ import { TextCustom } from '../composants/TextCustom';
 
 //import de fonctions globales
 import { GetAndSaveAll, getUsersFromApi } from '../globalFunctions/GetFromApi';
-import {saveAdresseServeur} from '../globalFunctions/SaveLocal';
+import {saveAdresseServeur, clearAllLocalData} from '../globalFunctions/SaveLocal';
 import {loadAdresseServeur} from '../globalFunctions/LoadLocal';
 import Login from './Login';
 
@@ -146,6 +146,8 @@ export default Configuration = ({route, navigation}) => {
                 // navigation.navigate('Detail', {uneRecette : item});
                 // navigation.navigate('UnEquipement');
                 console.log("trash-alt");
+                clearAllLocalData();
+                navigation.navigate('Login');
               }
               }>
               <View style={styles.blocBtn}>

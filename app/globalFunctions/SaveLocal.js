@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const saveSite = async (site) =>{
+export const saveSite = async (site = [{}]) =>{
     try{
         const jsonValue = JSON.stringify(site)
         await AsyncStorage.setItem("@site", jsonValue)
@@ -10,7 +10,7 @@ export const saveSite = async (site) =>{
     }
 };
 
-export const saveEquipements = async (equipements) =>{
+export const saveEquipements = async (equipements = [{}]) =>{
     try{
         const jsonValue = JSON.stringify(equipements)
         await AsyncStorage.setItem("@equipements", jsonValue)
@@ -19,7 +19,7 @@ export const saveEquipements = async (equipements) =>{
         console.log("erreur fct 'saveEquipements': ",e);
     }
   };
-export  const savePointsMesures = async (pointsMesures) =>{
+export  const savePointsMesures = async (pointsMesures = [{}]) =>{
     try{
         const jsonValue = JSON.stringify(pointsMesures)
         await AsyncStorage.setItem("@pointsMesures", jsonValue)
@@ -30,14 +30,14 @@ export  const savePointsMesures = async (pointsMesures) =>{
   };
 export  const saveCapteurs = async (capteurs) =>{
     try{
-        const jsonValue = JSON.stringify(capteurs)
+        const jsonValue = JSON.stringify(capteurs = [{}])
         await AsyncStorage.setItem("@capteurs", jsonValue)
         console.log('dans saveCapteurs');
     }catch(e){
         console.log("erreur fct 'saveCapteurs': ",e);
     }
 };
-export  const saveGrandeurs = async (grandeurs) =>{
+export  const saveGrandeurs = async (grandeurs = [{}]) =>{
     try{
         const jsonValue = JSON.stringify(grandeurs)
         await AsyncStorage.setItem("@grandeurs", jsonValue)
@@ -67,11 +67,15 @@ export const saveUserLocal = async (localUser = [{}])=>{
     }
 };
 
-export const saveSynchroTime = async () =>{
+export const saveSynchroTime = async (save = true) =>{
     let date = new Date;
     let dateString = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
     let heureString = date.getHours() + ':' + date.getMinutes();
     let dateHeureString = dateString + ' à ' + heureString;
+    if (save == false){dateHeureString = "Pas de date!"};
+    console.log("trace");
+    console.log(dateHeureString);
+
     try{
         const jsonValue = JSON.stringify(dateHeureString)
         await AsyncStorage.setItem("@dateSychro", jsonValue)
@@ -79,6 +83,21 @@ export const saveSynchroTime = async () =>{
     }catch(e){
         console.log("erreur fct 'saveSynchroTime': ",e);
     }
+}
+
+export const clearAllLocalData = () =>{
+    saveSynchroTime(false);
+    //On appelle les fonction de sauvegarde avec des valeurs vides
+    //ainsi on efface les datas
+    saveUserLocal();
+    saveAdresseServeur();
+    saveAdresseServeur();
+    saveGrandeurs();
+    saveCapteurs();
+    savePointsMesures();
+    saveEquipements();
+    saveSite();
+    
 }
 
 //   saveGrandeurs(grandeurs)

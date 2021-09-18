@@ -37,19 +37,21 @@ export default Login = ({route, navigation}) => {
 
     //Ce local user à une valeur par défaut pour le dev 
     //Ce paramètre sera persisté en mémoire par la suite
-    const [localUser, setLocalUser] = useState([
-        {"@id": "/api/utilisateurs/15",
-            "@type": "Utilisateur",
-            "id": 15,
-            "logname": "user_rennes_robert",
-            "roles": [
-                "ROLE_USER"
-            ],
-            "password": "$2y$13$ND1C/5AtMNeqaxVHcSCZ.ewCxXXrKn8HTk.oOv/TGyV.0V2Ha6or.",
-            "site": [
-                "/api/sites/1"
-            ]}
-    ]);
+
+    const [localUser, setLocalUser] = useState([]);
+    // const [localUser, setLocalUser] = useState([
+    //     {"@id": "/api/utilisateurs/15",
+    //         "@type": "Utilisateur",
+    //         "id": 15,
+    //         "logname": "user_rennes_robert",
+    //         "roles": [
+    //             "ROLE_USER"
+    //         ],
+    //         "password": "$2y$13$ND1C/5AtMNeqaxVHcSCZ.ewCxXXrKn8HTk.oOv/TGyV.0V2Ha6or.",
+    //         "site": [
+    //             "/api/sites/1"
+    //         ]}
+    // ]);
     const [idLocalSite, setIdLocalSite] = useState("");
     const [localSite, setLocalSite] = useState([]);
     const [localEquipements, setLocalEquipements] = useState([]);
