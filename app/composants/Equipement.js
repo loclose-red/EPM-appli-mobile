@@ -7,10 +7,6 @@ import localStyles from '../styles/localStyles';
 
 //import composants internes
 
-// cet import est pour le dev en attendant de gérer les photos en réel
-import { images } from '../globalFunctions/ImageRequire'; 
-
-
 
 export const Equipement = ({item, navigation}) => {
 
