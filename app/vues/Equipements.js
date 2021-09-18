@@ -25,6 +25,7 @@ export default Equipements = ({route, navigation}) => {
   const [lesEquipements, setLesEquipements] = useState([{"id":1}]);//on affecte un id pour éviter un message d'erreur au premier lancement de l'appli pour la flat list
   const [leSite, setLeSite] = useState([{}]);
   const [nomDuSite, setNomDuSite] = useState("Pas de nom!");
+  const [dateSynchro, setDateSynchro] = useState("Pas de date!");
 
   //Configutation de la barre de navigation
   React.useLayoutEffect(() => {
@@ -47,6 +48,7 @@ export default Equipements = ({route, navigation}) => {
 useEffect(() => {
   loadSite();
   loadEquipements();
+  loadDateSynchro();
 }, []);
 
 const loadSite = async () => {
@@ -78,6 +80,20 @@ const loadEquipements = async () => {
   }
 };
 
+const loadDateSynchro = async () =>{
+  try {
+    const jsonValue = await AsyncStorage.getItem("@dateSychro");
+    let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+    console.log("dans loadDateSynchro:");
+    console.log(retour);
+    setDateSynchro(retour);
+    // console.log("dans loadEquipements:" + retour[0].equ_marque);
+  } catch(e) {
+   // traitement des erreurs
+    console.log("erreur fct 'loadDateSynchro': ", e);
+  }
+};
+
     const renderItem = ({ item }) => (
       <Equipement 
         item={item}
@@ -87,9 +103,16 @@ const loadEquipements = async () => {
 
   return (
     <View style={styles.body}>
+
       <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
-                        console.log("click get from API");                     
+                      let date = new Date;
+                      let dateString = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+                      let heureString = date.getHours() + ':' + date.getMinutes();
+                      console.log(dateString + ' à ' + heureString);
+                      console.log(date.toUTCString());
+                        console.log(date); 
+                        console.log(date.toString());                    
                     }}
                 />
       
@@ -101,7 +124,7 @@ const loadEquipements = async () => {
       <View style={styles.infoSynchro}>
         <Text>Dernière sychronisation</Text>
         <Text>avec le serveur:</Text>
-        <Text style={styles.infoSynchroDate}>17/09/2021 à 17H12</Text>
+        <Text style={styles.infoSynchroDate}>{dateSynchro}</Text>
       </View>
       
       <SafeAreaView style={styles.container}>

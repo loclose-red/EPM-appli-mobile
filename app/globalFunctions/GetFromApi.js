@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {saveSite, saveEquipements, savePointsMesures, saveCapteurs, saveGrandeurs} from '../globalFunctions/SaveLocal';
+import {saveSite, saveEquipements, savePointsMesures, saveCapteurs, saveGrandeurs, saveSynchroTime} from '../globalFunctions/SaveLocal';
 import {loadSite, loadEquipements, loadPointsMesures, loadCapteurs} from '../globalFunctions/LoadLocal';
 import {downloadPhotos} from '../globalFunctions/DownlaodPhotos';
 
@@ -76,6 +76,7 @@ function checkFetch (controller, setDownloading) {
   }else{
     console.log('fetch ok');
     setDownloading(false); // indique la fin du download pour la vue config (fin sablier)
+    saveSynchroTime(); // enregistre la date de la synchro
     
   }
 

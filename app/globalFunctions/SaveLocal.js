@@ -67,6 +67,20 @@ export const saveUserLocal = async (localUser = [{}])=>{
     }
 };
 
+export const saveSynchroTime = async () =>{
+    let date = new Date;
+    let dateString = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+    let heureString = date.getHours() + ':' + date.getMinutes();
+    let dateHeureString = dateString + ' à ' + heureString;
+    try{
+        const jsonValue = JSON.stringify(dateHeureString)
+        await AsyncStorage.setItem("@dateSychro", jsonValue)
+        console.log('dans saveSynchroTime');
+    }catch(e){
+        console.log("erreur fct 'saveSynchroTime': ",e);
+    }
+}
+
 //   saveGrandeurs(grandeurs)
 
   // saveSite, saveEquipements, savePointsMesures, saveCapteurs
