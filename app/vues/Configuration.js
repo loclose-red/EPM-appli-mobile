@@ -1,5 +1,5 @@
 // import * as React from 'react';
-import { View, Text, TextInput, TouchableHighlight, Button, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableHighlight, Button, Image, ActivityIndicator, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -24,6 +24,7 @@ export default Configuration = ({route, navigation}) => {
   const [showBtnUpload, setShowBtnUpload] = React.useState(true);
   const [showBtnSychro, setShowBtnSychro] = React.useState(true);
   const [showBtnDelete, setShowBtnDelete] = React.useState(true);
+  const [downloading, setDownloading] = React.useState(false);
   //showBtnUpload showBtnSychro showBtnDelete
 
   console.log("pour test dans config");
@@ -60,6 +61,8 @@ export default Configuration = ({route, navigation}) => {
           </View>
         </View>
       ) :null}
+      
+
       <View style={styles.main}>
         <View style={styles.blocAdresse}>
           <Text style={styles.titreAdresse}>Adresse serveur:</Text>
@@ -108,7 +111,7 @@ export default Configuration = ({route, navigation}) => {
               onPress={() => {
                 console.log("sync");
                 if((route.params.idSite > 0) && (route.params.idSite != "") && (route.params.idSite != null)){
-                  GetAndSaveAll(route.params.idSite);
+                  GetAndSaveAll(route.params.idSite,downloading, setDownloading);
                 }else{
                   alert("Pas de site à télécharger! Vérifier le Login.");
                 }
@@ -121,7 +124,10 @@ export default Configuration = ({route, navigation}) => {
                   <Text >Synchronisation avec le seveur</Text>
                   <Text >mise à jour des données.</Text>
                 </View>
-                <FontAwesome5 style={styles.blocBtnIcone} name={'sync'} solid size={30} />
+                {downloading ? (
+                  <ActivityIndicator size="large" color="#000000" />
+                ):<FontAwesome5 style={styles.blocBtnIcone} name={'sync'} solid size={30} />}
+                
               </View>
             </TouchableHighlight>
           ) :null}

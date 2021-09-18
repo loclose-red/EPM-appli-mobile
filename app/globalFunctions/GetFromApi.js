@@ -26,8 +26,9 @@ let fetchGrandeursFinish = false;
 
 
 
-export function GetAndSaveAll(idSite) {
+export function GetAndSaveAll(idSite,downloading, setDownloading) {
 
+  setDownloading(true);
   let controller = new AbortController();
   let signal = controller.signal;
   console.log("dans fonction globale");
@@ -49,7 +50,7 @@ export function GetAndSaveAll(idSite) {
   getGrandeursFromApi(signal);
 
   //mise en place d'un timeOut de 15 secondes sur les fetch
-  setTimeout(() => checkFetch (controller), 15000);
+  setTimeout(() => checkFetch (controller, setDownloading), 15000);
   
 }
 
@@ -62,7 +63,7 @@ export function GetAndSaveAll(idSite) {
 
 
 // cette fonction s'execute après le temps du time out
-function checkFetch (controller) {
+function checkFetch (controller, setDownloading) {
   // on arrête les fetch en cours si tout n'est pas terminé
   if((fetchSiteFinish == false)
     ||(fetchEquipementsFinish == false)
@@ -74,6 +75,7 @@ function checkFetch (controller) {
     controller.abort();    
   }else{
     console.log('fetch ok');
+    setDownloading(false); // indique la fin du download pour la vue config (fin sablier)
     
   }
 
@@ -146,7 +148,7 @@ const getEquipementAndPtMesureByIdEquiFromApi = async (idEqui,signal) =>{
     lesPointsDeMesures.forEach(unPtDeMes => {
       idPtDeMes = unPtDeMes.replace("/api/pt_mesures/", "");
       console.log("dans for each id pt de mesure: " + idPtDeMes);
-      getPtDeMesAndCapteurByIdPtdeMesFromApi(idPtDeMes,signal);
+      getPtDeMesAndCapteurByIdPtdeMesFromApi(idPtDeMes, signal);
     });
   } catch (error) {
     console.error(error);
@@ -178,7 +180,7 @@ const getPtDeMesAndCapteurByIdPtdeMesFromApi = async (idPtMes,signal) =>{
 };
 
 //fonction interne déclenchée par les fonctions précédentes
-const getCapteurByIdFromApi = async (idCapteur,signal) =>{
+const getCapteurByIdFromApi = async (idCapteur,signal, setDownloading) =>{
   let capteurs_sc = capteurs;
   try {
     const response = await fetch(adresseServeur + '/api/capteurs/' + idCapteur, {signal : signal});
