@@ -4,6 +4,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
+export const loadUserLocalGf = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem("@localUser");
+        let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
+        console.log(retour[0]);
+        console.log("dans loadUserLocal de fonction globales:");
+        console.log(retour[0]);
+    } catch(e) {
+       // traitement des erreurs
+        console.log("erreur fct 'loadUserLocal': ", e);
+    }
+};
+
 export const loadSite = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem("@site");

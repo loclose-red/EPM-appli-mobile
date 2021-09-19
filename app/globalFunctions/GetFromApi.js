@@ -213,8 +213,8 @@ const getGrandeursFromApi = async (adresseServeur, signal) =>{
 
 //fonction externe isolée, n'est pas déclenchée par les fonction précédentes
 export const getUsersFromApi = async (adresseServeur) => {
-  
-  // console.log(adresseServeur);
+  console.log("dans get user");
+  console.log(adresseServeur);
   // console.log(adresseServeur + '/api/utilisateurs?page=1');
 
   let controllerGu = new AbortController(); //objet utilisé pour stopper les fetch

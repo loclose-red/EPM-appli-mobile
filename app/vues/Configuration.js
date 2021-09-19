@@ -43,12 +43,12 @@ export default Configuration = ({route, navigation}) => {
     if (route.params.vueParent == "login") {
       setShowBtnUpload(false);
       setShowBtnSychro(false);
-      loadAdresseServeur(setAdresseServeur);
-  }
+    }
+    loadAdresseServeur(setAdresseServeur);
 
   }, []);
   
-  
+  console.log("affiche vue parent");
   console.log(route.params.vueParent);
   // console.log(route.params);
   return (

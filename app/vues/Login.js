@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 // import React from 'react';
 import { View, Text, Image, Button, TextInput, ActivityIndicator, TouchableHighlight, PermissionsAndroid, StyleSheet } from "react-native";
 
@@ -18,7 +19,7 @@ import { TextCustom } from '../composants/TextCustom';
 
 //import de fonctions globales internes
 import { GetAndSaveAll, getUsersFromApi } from '../globalFunctions/GetFromApi';
-import {loadSite} from '../globalFunctions/LoadLocal';
+import {loadUserLocalGf} from '../globalFunctions/LoadLocal';
 import {postMesure} from '../globalFunctions/PostApi';
 import {downloadPhotos} from '../globalFunctions/DownlaodPhotos';
 import {saveUserLocal} from '../globalFunctions/SaveLocal';
@@ -70,9 +71,6 @@ export default Login = ({route, navigation}) => {
                                     underlayColor="#DDDDDD"
                                     onPress={() => {
                                     navigation.navigate('Configuration', {vueParent: "login"});
-                                        console.log("on press bar nav");
-                                        console.log(adresseServeur);
-                                        test();
                                     }
                                     }>
                                     {/* <Icon name="plus-square" size={35} color="#000" /> */}
@@ -82,24 +80,15 @@ export default Login = ({route, navigation}) => {
         });
     }, [navigation]);
 
-    const test = () => {
-        let coucou = adresseServeur;
-        console.log('dans test');
-        console.log(coucou);
-    };
-
-    
-
     const loadUserLocal = async () => {
         try {
         const jsonValue = await AsyncStorage.getItem("@localUser");
         let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
-        console.log("dans loadUserLocal vue login:"); 
-        retour? console.log(retour[0]) : console.log('Pas de user enregistré en local');;
         //si on trouve un user enregistré 
         //alors, on affecte l'id site du hook pour utilisation dans la cession
-        if (retour != null){
-            alert("Utilisateur trouvé: " + retour[0].logname + ". Clique sur valider sans saisir un logname");
+        if (retour){
+            navigation.navigate('Equipements', {adresseServeur: adresseServeur});
+            // alert("Utilisateur trouvé: " + retour[0].logname + ". Clique sur valider sans saisir un logname");
             setLocalUser(retour[0]);
             let user = retour[0];
             
@@ -109,7 +98,7 @@ export default Login = ({route, navigation}) => {
                 setIdLocalSite(idSite);
             };
         }else{
-            // alert('Il n y a pas de user d enregisté!');
+            alert('Il n y a pas de user d enregisté!');
         }
         } catch (e) {
         // traitement des erreurs
@@ -123,37 +112,41 @@ export default Login = ({route, navigation}) => {
         // il faudra trouver une autre façon
         if (logName != ""){
             const tableauUsers = await getUsersFromApi(adresseServeur);
-            console.log("dans verifLogName() vue login");
-            console.log(tableauUsers);
             setUsersFromServer(tableauUsers);
 
             //test si le logname saisi existe dans la liste des users
             //récupération de l'id du site
             //Ce fonctionnement sera à changer lors de la véritable autentification
-            let idSite;
+            let idSite = "";
+            let loginOk = false;
             tableauUsers.forEach(user => {
                 if (user.logname == logName){
-                    console.log('login ok');
-                    console.log(user);
                     saveUserLocal([user]);
+                    loginOk = true;
                     //on récupère l'id site du user
-                    if(user.site.lengh > 0){
+                    if(user.site.length > 0){
                         cheminSite = user.site[0];
                         idSite = cheminSite.replace("/api/sites/","");
                         setIdLocalSite(idSite);
-                    };
+                    };                    
                 }
-            })
+            });
+            if (loginOk){
+                alert("veuillez synchroniser les données avec le serveur!")
+                navigation.navigate('Configuration', {adresseServeur: adresseServeur, idSite : idSite});
+            }else{
+                alert("Veuillez verifier le login ou l'adresse serveur dans la configuration!")
+            }
+
         }
         
-        navigation.navigate('Equipements', {adresseServeur: adresseServeur, idSite : idLocalSite});
 
     };
     
     useEffect(() => {    
         
-        loadAdresseServeur(setAdresseServeur);
-        loadUserLocal();
+        
+        
 
         // Demande de Permission d'ecriture en local pour la sauvegarde des images
         const requestPermissionAsync = async () => {
@@ -167,12 +160,19 @@ export default Login = ({route, navigation}) => {
         };
         requestPermissionAsync();  
     }, []);
+    useFocusEffect(
+        React.useCallback(() => {
+            console.log("on focus vue login");
+            loadAdresseServeur(setAdresseServeur);
+            loadUserLocal();
+        }, [])
+    );
 
     return(
         // <View style={{backgroundColor : 'yellow',}}>
         <View style={styles.body}>
 
-            {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie du log, on efface le header et le footer
+            {showComponent ? ( // technique pour cacher des composants. Ici lors de la saisie du log, on cache le header et le footer
                 <View style={styles.header}>
                     <Image
                         style={styles.logo}
@@ -219,9 +219,7 @@ export default Login = ({route, navigation}) => {
                 <Button
                     style={styles.btn}
                     onPress={() => {
-                        verifLogName();
-                        console.log("click sur validez");
-                        
+                        verifLogName();                        
                     }}
                     title="Validez"
                     // color="#841584"
@@ -230,7 +228,7 @@ export default Login = ({route, navigation}) => {
                 <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
                         console.log("click sur test");
-                        downloadPhotos("http://192.168.1.13:8000","machine-production-4-6140c2e9c9322750663675.jpg");
+                        loadUserLocalGf();
                         
                     }}
                 />
@@ -240,7 +238,7 @@ export default Login = ({route, navigation}) => {
 
             </View>
             
-            {showComponent ? ( // technique pour effacer des composants. Ici lors de la saisie du log, on efface le header et le footer
+            {showComponent ? ( // technique pour cacher des composants. Ici lors de la saisie du log, on cache le header et le footer
             <View style={styles.footer}>
                 <Image
                     style={styles.banniere}

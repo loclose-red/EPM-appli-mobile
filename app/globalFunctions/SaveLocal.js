@@ -57,7 +57,7 @@ export const saveAdresseServeur = async (adresseServeur = [""])=>{
     }
 };
 
-export const saveUserLocal = async (localUser = [{}])=>{
+export const saveUserLocal = async (localUser = "")=>{
     try{
         const jsonValue = JSON.stringify(localUser)
         await AsyncStorage.setItem("@localUser", jsonValue)
