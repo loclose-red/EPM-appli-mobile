@@ -87,16 +87,18 @@ export default Login = ({route, navigation}) => {
         //si on trouve un user enregistré 
         //alors, on affecte l'id site du hook pour utilisation dans la cession
         if (retour){
-            navigation.navigate('Equipements', {adresseServeur: adresseServeur});
             // alert("Utilisateur trouvé: " + retour[0].logname + ". Clique sur valider sans saisir un logname");
             setLocalUser(retour[0]);
             let user = retour[0];
-            
+            let idSite = "";
             if(user.site.length > 0){
                 cheminSite = user.site[0];
                 idSite = cheminSite.replace("/api/sites/","");
                 setIdLocalSite(idSite);
             };
+            console.log("trace");
+            console.log(idSite);
+            navigation.navigate('Equipements', {adresseServeur: adresseServeur, idSite : idSite});
         }else{
             alert('Il n y a pas de user d enregisté!');
         }

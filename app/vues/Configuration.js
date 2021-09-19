@@ -48,8 +48,8 @@ export default Configuration = ({route, navigation}) => {
 
   }, []);
   
-  console.log("affiche vue parent");
-  console.log(route.params.vueParent);
+  // console.log("affiche vue parent");
+  // console.log(route.params.vueParent);
   // console.log(route.params);
   return (
     <View style={styles.body}>
@@ -116,12 +116,13 @@ export default Configuration = ({route, navigation}) => {
               onPress={() => {
                 console.log("sync");
                 if((route.params.idSite > 0) && (route.params.idSite != "") && (route.params.idSite != null)){
+                  
                   GetAndSaveAll(route.params.idSite, adresseServeur, setDownloading);
                 }else{
                   alert("Pas de site à télécharger! Vérifier le Login.");
                 }
                 
-                console.log(route.params.idSite);
+                console.log("idsite from route:" + route.params.idSite);
               }
               }>
               <View style={styles.blocBtn}>

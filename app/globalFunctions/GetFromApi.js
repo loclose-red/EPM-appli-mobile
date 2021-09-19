@@ -31,7 +31,7 @@ export function GetAndSaveAll(idSite, adresseServeur, setDownloading) {
   setDownloading(true);
   let controller = new AbortController();
   let signal = controller.signal;
-  console.log("dans fonction globale");
+  console.log("dans fonction globale GetFromApi");
   
   //raz des tableaux
   site.length = 0;
@@ -47,7 +47,7 @@ export function GetAndSaveAll(idSite, adresseServeur, setDownloading) {
   
   
   getSiteAndEquipementsByIdSiteFromApi(idSite, adresseServeur, signal);
-  getGrandeursFromApi(signal, adresseServeur);
+  getGrandeursFromApi(adresseServeur, signal);
 
   //mise en place d'un timeOut de 15 secondes sur les fetch
   setTimeout(() => checkFetch (controller, setDownloading), 15000);
@@ -103,6 +103,7 @@ function checkFetch (controller, setDownloading) {
 const getSiteAndEquipementsByIdSiteFromApi = async (idSite, adresseServeur,signal) => {
   //création d'une référence du tableau "site" pour utilisation dans le "try..."
   let site_sc = site;
+  
   try {
     //const response = await fetch('http://192.168.1.13:8000/api/sites/1');
     const response = await fetch(adresseServeur + '/api/sites/' + idSite, {signal : signal});
@@ -133,14 +134,13 @@ const getSiteAndEquipementsByIdSiteFromApi = async (idSite, adresseServeur,signa
 //
 const getEquipementAndPtMesureByIdEquiFromApi = async (idEqui, adresseServeur,signal) =>{
   let equipements_sc = equipements;
+  
   try {
     const response = await fetch(adresseServeur + '/api/equipements/' + idEqui, {signal : signal});
     const json = await response.json();
     equipements_sc.push(json);
     //on télécharge l'image de l'équipement
     downloadPhotos(adresseServeur, json.equ_photo_1);
-    console.log('trace');
-    console.log(json.equ_photo_1);
     let lesPointsDeMesures = [];
     lesPointsDeMesures = json.ptMesures;
 
@@ -197,6 +197,7 @@ const getCapteurByIdFromApi = async (idCapteur, adresseServeur,signal) =>{
 
 //fonction interne
 const getGrandeursFromApi = async (adresseServeur, signal) =>{
+  console.log("trace debug");
   let grandeurs_sc = grandeurs;
   try {
     const response = await fetch(adresseServeur + '/api/grandeurs', {signal : signal});
