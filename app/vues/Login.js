@@ -145,11 +145,7 @@ export default Login = ({route, navigation}) => {
 
     };
     
-    useEffect(() => {    
-        
-        
-        
-
+    useEffect(() => {   
         // Demande de Permission d'ecriture en local pour la sauvegarde des images
         const requestPermissionAsync = async () => {
             try {

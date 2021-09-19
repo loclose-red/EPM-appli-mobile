@@ -72,22 +72,21 @@ function checkFetch (controller, setDownloading) {
     ||(fetchGrandeursFinish == false))
     {
     console.log('fetch erreur');
+    alert("Problème lors de la sychronisation! Veuillez verifier la connection.");
     controller.abort();    
   }else{
     console.log('fetch ok');
-    setDownloading(false); // indique la fin du download pour la vue config (fin sablier)
-    saveSynchroTime(); // enregistre la date de la synchro
-    
-  }
-
-  //si au moins un fetch a fonctionné, on sauvegarde avec async storage
-  if(fetchSiteFinish||fetchEquipementsFinish||fetchPointsMesuresFinish||fetchCapteursFinish||fetchGrandeursFinish){
     saveSite(site);
     saveEquipements(equipements);
     savePointsMesures(pointsMesures);
     saveCapteurs(capteurs);
     saveGrandeurs(grandeurs);
+    saveSynchroTime(); // enregistre la date de la synchro
+    
   }
+  setDownloading(false); // indique la fin du download pour la vue config (fin sablier)
+
+  
 
 }
 

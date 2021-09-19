@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, Text, Image, Button, TouchableHighlight, FlatList, SafeAreaView, StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -49,8 +50,15 @@ export default Equipements = ({route, navigation}) => {
 useEffect(() => {
   loadSite();
   loadEquipements();
-  loadDateSynchro();
+  
 }, []);
+
+useFocusEffect(
+  React.useCallback(() => {
+      console.log("on focus vue equipements");
+      loadDateSynchro();
+  }, [])
+);
 
 const loadSite = async () => {
   try {
@@ -87,6 +95,12 @@ const loadDateSynchro = async () =>{
     let retour = (jsonValue != null ? JSON.parse(jsonValue) : null);
     console.log("dans loadDateSynchro:");
     console.log(retour);
+    // si une sychro serveur à été faite, on recharge les données locales
+    if(retour != dateSynchro){
+      console.log("dans recharge");
+      loadSite();
+      loadEquipements();
+    }
     setDateSynchro(retour);
     // console.log("dans loadEquipements:" + retour[0].equ_marque);
   } catch(e) {
