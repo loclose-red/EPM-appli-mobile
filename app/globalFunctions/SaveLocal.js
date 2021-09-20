@@ -28,9 +28,9 @@ export  const savePointsMesures = async (pointsMesures = [{}]) =>{
         console.log("erreur fct 'savePointsMesures': ",e);
     }
   };
-export  const saveCapteurs = async (capteurs) =>{
+export  const saveCapteurs = async (capteurs = [{}]) =>{
     try{
-        const jsonValue = JSON.stringify(capteurs = [{}])
+        const jsonValue = JSON.stringify(capteurs)
         await AsyncStorage.setItem("@capteurs", jsonValue)
         console.log('dans saveCapteurs');
     }catch(e){
