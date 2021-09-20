@@ -119,7 +119,7 @@ const loadDateSynchro = async () =>{
   return (
     <View style={styles.body}>
 
-      <Button style={styles.btn} title="test" color="blue"
+      {/* <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
                       let date = new Date;
                       let dateString = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
@@ -129,7 +129,7 @@ const loadDateSynchro = async () =>{
                         console.log(date); 
                         console.log(date.toString());                    
                     }}
-                />
+                /> */}
       
       <View style={styles.titre}>
         <Text style={styles.titreDescription}>site:</Text>

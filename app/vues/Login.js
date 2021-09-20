@@ -223,13 +223,13 @@ export default Login = ({route, navigation}) => {
                     // color="#841584"
                     color="green"
                     />
-                <Button style={styles.btn} title="test" color="blue"
+                {/* <Button style={styles.btn} title="test" color="blue"
                     onPress={() => {
                         console.log("click sur test");
                         loadUserLocalGf();
                         
                     }}
-                />
+                /> */}
 
 
             <ActivityIndicator size="large" color="#0000ff" />
