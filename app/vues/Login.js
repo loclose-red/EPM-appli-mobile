@@ -232,7 +232,7 @@ export default Login = ({route, navigation}) => {
                 /> */}
 
 
-            <ActivityIndicator size="large" color="#0000ff" />
+            {/* <ActivityIndicator size="large" color="#0000ff" /> */}
 
             </View>
             
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
         padding: "3%",
     },
     banniere: {
-        width: 200,
+        width: 180,
         height: "100%",
     },
     text1: {
