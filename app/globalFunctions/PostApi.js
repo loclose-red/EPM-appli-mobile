@@ -12,13 +12,13 @@ const urlTest = "http://192.168.43.79:8000/api/mesures"
 
 export const postMesure = async (url, body) => {
     try {
-        const response = await fetch(urlTest, {
+        const response = await fetch(url + "/api/mesures", {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(bodyTest)
+            body: JSON.stringify(body)
         });
         const json = await response.json();
         console.log("dans postMesure:");

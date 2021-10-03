@@ -1,0 +1,193 @@
+{  
+  "jeuMesuresTest": [
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "93.00",
+      "mesDate": "2020-07-08T02:25:39+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "93.00",
+      "mesDate": "2020-07-08T23:08:39+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "33.00",
+      "mesDate": "2020-07-08T05:31:51+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "36.00",
+      "mesDate": "2020-07-08T20:53:38+00:00"
+	},
+    { 
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "39.00",
+      "mesDate": "2020-07-08T21:43:00+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "42.00",
+      "mesDate": "2020-07-08T03:50:19+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "71.00",
+      "mesDate": "2020-07-08T21:30:36+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "33.00",
+      "mesDate": "2020-07-08T07:25:35+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "53.00",
+      "mesDate": "2020-07-08T02:31:27+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "20.00",
+      "mesDate": "2020-07-08T23:58:04+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "85.00",
+      "mesDate": "2021-07-28T13:34:31+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "85.00",
+      "mesDate": "2021-07-25T15:34:31+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "81.00",
+      "mesDate": "2020-07-10T02:25:39+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "85.00",
+      "mesDate": "2020-07-11T23:08:39+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "87.00",
+      "mesDate": "2020-07-12T05:31:51+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "80.00",
+      "mesDate": "2020-07-13T20:53:38+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "75.00",
+      "mesDate": "2020-07-14T02:25:39+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "72.00",
+      "mesDate": "2020-07-14T23:08:39+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "70.00",
+      "mesDate": "2020-07-16T05:31:51+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "65.00",
+      "mesDate": "2020-07-17T20:53:38+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "62.00",
+      "mesDate": "2020-07-18T02:25:39+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "80.00",
+      "mesDate": "2020-07-19T23:08:39+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "87.00",
+      "mesDate": "2020-07-20T05:31:51+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/2",
+      "ptmesure": "/api/pt_mesures/22",
+      "mesValeur1": "93.00",
+      "mesDate": "2020-07-21T20:53:38+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "93.00",
+      "mesDate": "2020-07-08T02:25:39+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "86.00",
+      "mesDate": "2021-09-17T15:34:31+00:00"
+    },
+    {
+      "grandeur": "/api/grandeurs/2",
+      "capteur": "/api/capteurs/1",
+      "ptmesure": "/api/pt_mesures/21",
+      "mesValeur1": "93.00",
+      "mesDate": "2020-07-08T02:25:39+00:00"
+    }
+  ]
+}

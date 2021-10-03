@@ -13,7 +13,11 @@ import { TextCustom } from '../composants/TextCustom';
 import { GetAndSaveAll, getUsersFromApi } from '../globalFunctions/GetFromApi';
 import {saveAdresseServeur, clearAllLocalData} from '../globalFunctions/SaveLocal';
 import {loadAdresseServeur} from '../globalFunctions/LoadLocal';
+import {postMesure} from '../globalFunctions/PostApi';
 import Login from './Login';
+
+//fichier json local d'un jeu de mesures pour test (ce fichier simule des mesures récupérées des capteurs)
+import * as jeuMesuresTest from '../src/json/jeuMesuresTest.json';
 
 
 
@@ -97,6 +101,10 @@ export default Configuration = ({route, navigation}) => {
             underlayColor="#DDDDDD"
             onPress={() => {
               console.log("Upload");
+              const lesMesuresDeTest = jeuMesuresTest.default['jeuMesuresTest'];
+              lesMesuresDeTest.forEach(uneMesure => {                
+                postMesure(adresseServeur,uneMesure);
+              });
             }
             }>
             <View style={styles.blocBtn}>
