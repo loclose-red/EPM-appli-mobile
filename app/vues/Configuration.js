@@ -30,6 +30,9 @@ export default Configuration = ({route, navigation}) => {
   const [showBtnSychro, setShowBtnSychro] = React.useState(true);
   const [showBtnDelete, setShowBtnDelete] = React.useState(true);
   const [downloading, setDownloading] = React.useState(false);
+  const [uploading, setUploading] = React.useState(false);
+  // const [compteur, setCompteur] = React.useState(0);
+
   
   //Configutation de la barre de navigation
   React.useLayoutEffect(() => {
@@ -102,9 +105,14 @@ export default Configuration = ({route, navigation}) => {
             onPress={() => {
               console.log("Upload");
               const lesMesuresDeTest = jeuMesuresTest.default['jeuMesuresTest'];
-              lesMesuresDeTest.forEach(uneMesure => {                
-                postMesure(adresseServeur,uneMesure);
-              });
+              let compteur = lesMesuresDeTest.length;//pour gérer le temps d'affichage du sablier
+              let index = 1;
+              lesMesuresDeTest.forEach(uneMesure => {
+                setUploading(true);//Démarrage du sablier (la fin du sablier est géréé par le compteur et l'index) 
+                //le sablier est stoppé dans la fonction postMesure
+                postMesure(adresseServeur,uneMesure ,setUploading , compteur, index);
+                index = index + 1;
+              });               
             }
             }>
             <View style={styles.blocBtn}>
@@ -112,7 +120,9 @@ export default Configuration = ({route, navigation}) => {
                 <Text >Upload vers serveur des données</Text>
                 <Text >des capteurs (mesures).</Text>
               </View>
-              <FontAwesome5 style={styles.blocBtnIcone} name={'upload'} solid size={30} />
+              {uploading ? (
+                  <ActivityIndicator size="large" color="#000000" />
+                ):<FontAwesome5 style={styles.blocBtnIcone} name={'upload'} solid size={30}/>}
             </View>
           </TouchableHighlight>
         ) : null}

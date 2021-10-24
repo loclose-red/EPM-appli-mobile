@@ -10,7 +10,7 @@ const bodyTest = {
 const urlTest = "http://192.168.43.79:8000/api/mesures"
 
 
-export const postMesure = async (url, body) => {
+export const postMesure = async (url, body,setUploading , compteur, index) => {
     try {
         const response = await fetch(url + "/api/mesures", {
             method: 'POST',
@@ -23,6 +23,9 @@ export const postMesure = async (url, body) => {
         const json = await response.json();
         console.log("dans postMesure:");
         console.log(json);
+        if (compteur == index){
+            setUploading(false);
+        }
     }
     catch (e) {
         console.log("erreur dans postMesure: " + e);
